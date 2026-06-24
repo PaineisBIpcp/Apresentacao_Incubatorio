@@ -63,7 +63,7 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
 #sidebar{position:fixed;top:0;left:0;width:var(--sidebar-w);height:100vh;background:var(--verde-forte);overflow-y:auto;z-index:100;display:flex;flex-direction:column;}
 .sidebar-logo{padding:1.5rem 1.25rem 1.2rem;border-bottom:1px solid rgba(255,255,255,.08);margin-bottom:.5rem;}
 .sidebar-logo-eyebrow{font-size:.58rem;font-weight:600;color:rgba(251,190,19,.6);letter-spacing:.15em;text-transform:uppercase;margin-bottom:.45rem;}
-.sidebar-logo-name{font-family:'Space Grotesk',sans-serif;font-size:1.25rem;font-weight:700;color:#fff;letter-spacing:-.02em;line-height:1;}
+.sidebar-logo-name{font-family:'Montserrat',sans-serif;font-size:1.15rem;font-weight:800;color:#fff;letter-spacing:-.01em;line-height:1;}
 .sidebar-logo-name span{color:var(--amarelo-forte);}
 .sidebar-logo-tag{display:inline-flex;align-items:center;gap:.35rem;margin-top:.55rem;background:rgba(251,190,19,.12);border:1px solid rgba(251,190,19,.2);border-radius:4px;padding:.2rem .5rem;}
 .sidebar-logo-tag-dot{width:5px;height:5px;background:var(--amarelo-forte);border-radius:50%;flex-shrink:0;}
@@ -88,11 +88,23 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
 
 /* FILTER BAR */
 .filter-bar{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem 1.25rem;display:flex;align-items:flex-end;gap:.85rem;flex-wrap:wrap;margin-bottom:1.5rem;}
-.filter-group{display:flex;flex-direction:column;gap:.35rem;min-width:130px;}
+.filter-group{display:flex;flex-direction:column;gap:.35rem;min-width:130px;position:relative;}
 .filter-label{font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--text-3);}
-.filter-select{padding:.5rem .75rem;border:1px solid var(--border);border-radius:6px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--text-1);background:#f8fafc;cursor:pointer;transition:border-color .15s;outline:none;min-width:130px;}
-.filter-select:focus{border-color:var(--verde-forte);}
-.filter-btn{padding:.5rem 1.1rem;background:var(--verde-forte);color:#fff;border:none;border-radius:6px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;white-space:nowrap;align-self:flex-end;}
+.ms-trigger{display:flex;align-items:center;justify-content:space-between;gap:.4rem;padding:.5rem .75rem;border:1px solid var(--border);border-radius:6px;font-size:.82rem;font-family:'Inter',sans-serif;color:var(--text-1);background:#f8fafc;cursor:pointer;min-width:130px;user-select:none;transition:border-color .15s,background-color .15s;}
+.ms-trigger:hover{border-color:var(--verde-forte);}
+.ms-trigger.active{border-color:var(--verde-forte);background:rgba(1,67,51,.04);}
+.ms-trigger-text{flex:1;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.ms-trigger-arrow{font-size:.55rem;color:var(--text-3);flex-shrink:0;transition:transform .15s;}
+.ms-trigger.open .ms-trigger-arrow{transform:rotate(180deg);}
+.ms-badge{display:inline-flex;align-items:center;justify-content:center;background:var(--verde-forte);color:#fff;border-radius:10px;font-size:.6rem;font-weight:700;padding:.05rem .35rem;margin-left:.3rem;flex-shrink:0;}
+.ms-dropdown{display:none;position:absolute;top:calc(100% + 4px);left:0;min-width:100%;max-height:220px;overflow-y:auto;background:#fff;border:1px solid var(--border);border-radius:8px;box-shadow:0 4px 16px rgba(0,0,0,.1);z-index:200;}
+.ms-dropdown.open{display:block;}
+.ms-search{width:100%;padding:.5rem .75rem;border:none;border-bottom:1px solid var(--border);font-size:.8rem;font-family:'Inter',sans-serif;box-sizing:border-box;outline:none;color:var(--text-1);background:#f8fafc;}
+.ms-option{display:flex;align-items:center;gap:.5rem;padding:.4rem .75rem;font-size:.8rem;font-family:'Inter',sans-serif;color:var(--text-1);cursor:pointer;transition:background .1s;}
+.ms-option:hover{background:#f0f4f2;}
+.ms-option input[type=checkbox]{accent-color:var(--verde-forte);width:13px;height:13px;cursor:pointer;flex-shrink:0;}
+.ms-option.all-opt{border-bottom:1px solid var(--border);font-weight:600;color:var(--text-2);}
+.filter-btn{padding:.5rem 1.1rem;background:var(--verde-forte);color:#fff;border:none;border-radius:6px;font-size:.82rem;font-weight:700;cursor:pointer;font-family:'Inter',sans-serif;transition:background .15s;white-space:nowrap;}
 .filter-btn:hover{background:#025f47;}
 .filter-btn.secondary{background:transparent;color:var(--text-2);border:1px solid var(--border);}
 .filter-btn.secondary:hover{background:#f1f5f9;}
@@ -147,26 +159,37 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
 .acum-month-bar-fill{height:100%;border-radius:2px;}
 
 .acum-panel-stack{
-    display:flex;
-    flex-direction:column;
-    width:120px; /* ajuste conforme desejar */
+  display:flex;
+  flex-direction:column;
+  width:120px;
 }
-
 .acum-panel-stack .acum-panel{
-    flex:1;
-    border-right:1px solid #eef2f0;
-    border-bottom:1px solid #eef2f0;
+  flex:1;
+  border-right:1px solid #eef2f0;
+  border-bottom:1px solid #eef2f0;
 }
-
 .acum-panel-stack .acum-panel:last-child{
-    border-bottom:none;
+  border-bottom:none;
 }
 
+/* TABLE HISTÓRICO INDICADOR */
+.summary-wrap{overflow-x:auto;border-top:2px solid #eef2f0;padding:.85rem 0 0;flex-shrink:0;margin-bottom:.6rem;}
+.summary-table{width:100%;border-collapse:collapse;font-size:.75rem;}
+.summary-table th,.summary-table td{padding:.32rem .6rem;text-align:right;white-space:nowrap;border:1px solid #e8eeeb;}
+.summary-table th:first-child,.summary-table td:first-child{text-align:left;font-weight:700;min-width:54px;}
+.summary-table thead th{background:#f0f4f2;color:var(--verde-forte);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;border-bottom:2px solid #cddbd5;}
+.summary-row-cur td{background:#fff;color:var(--text-1);font-weight:600;}
+.summary-row-cur td:first-child{color:var(--verde-forte);}
+.summary-row-cur .s-acm{font-weight:800;color:var(--verde-militar);}
+.summary-row-prev td{background:#f8faf9;color:var(--text-2);font-weight:500;}
+.summary-row-prev td:first-child{color:var(--text-2);}
+.summary-row-prev .s-acm{font-weight:700;color:var(--text-2);}
+.summary-row-meta td{background:#fffdf0;color:#7a6000;font-weight:500;}
+.summary-row-meta td:first-child{color:#7a6000;}
+.summary-row-meta .s-acm{font-weight:700;}
+.s-null{color:var(--text-3);}
 
-/* TABLE REDUCE INDICADOR*/
-
-
-/* TABLE teste*/
+/* DATA TABLE */
 .data-table-wrap{overflow-x:auto;border-top:2px solid #eef2f0;padding-top:1rem;}
 .data-table{width:100%;border-collapse:collapse;font-size:.75rem;}
 .data-table thead th{background:#f0f4f2;color:var(--verde-forte);font-weight:700;font-size:.6rem;text-transform:uppercase;letter-spacing:.06em;padding:.5rem .7rem;text-align:left;white-space:nowrap;border-bottom:2px solid #d4e1dc;}
@@ -191,14 +214,6 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
 .spinner{width:40px;height:40px;border:3px solid #e2e8f0;border-top-color:var(--verde-forte);border-radius:50%;animation:spin .7s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg);}}
 .loading-text{font-size:.875rem;font-weight:600;color:var(--verde-forte);}
-
-/* CHART FILTER BADGE */
-.chart-filter-badge{display:inline-flex;align-items:center;gap:.4rem;background:rgba(1,67,51,.07);border:1px solid rgba(1,67,51,.18);border-radius:20px;padding:.2rem .65rem;font-size:.62rem;font-weight:700;color:var(--verde-forte);margin-left:.5rem;}
-.chart-filter-badge.all{background:rgba(148,163,184,.1);border-color:rgba(148,163,184,.25);color:var(--text-3);}
-
-/* IMPACTO special chart */
-.impacto-negative{color:var(--vermelho);}
-.impacto-positive{color:rgb(0,140,55);}
 </style>
 </head>
 <body>
@@ -248,7 +263,7 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
       <div class="sidebar-logo-name">GMI <span>Incubatório</span></div>
       <div class="sidebar-logo-tag">
         <div class="sidebar-logo-tag-dot"></div>
-        <div class="sidebar-logo-tag-text">Painel de Eclosão</div>
+        <div class="sidebar-logo-tag-text">Analise de Eclosão</div>
       </div>
     </div>
     <div class="sidebar-section-label">Indicadores</div>
@@ -256,6 +271,10 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
     <a class="nav-item active" data-page="eficiencia" onclick="setPage('eficiencia',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
       Eficiência de Eclosão
+    </a>
+    <a class="nav-item" data-page="eclosaoreal" onclick="setPage('eclosaoreal',this)">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg>
+      Eclosão
     </a>
     <a class="nav-item" data-page="regiao" onclick="setPage('regiao',this)">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
@@ -301,30 +320,84 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
 
     <!-- FILTER BAR -->
     <div class="filter-bar">
-      <div class="filter-group">
+      <div class="filter-group" id="fg-mes">
         <label class="filter-label">Mês / Data</label>
-        <select class="filter-select" id="filter-mes" onchange="applyFilters()"><option value="">Todos</option></select>
+        <div class="ms-trigger" id="ms-mes" onclick="toggleDropdown('mes')">
+          <span class="ms-trigger-text" id="ms-mes-txt">Todos</span>
+          <span class="ms-trigger-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="dd-mes">
+          <input class="ms-search" type="text" placeholder="Buscar…" oninput="filterOpts('mes', this.value)">
+          <div class="ms-option all-opt" onclick="toggleAll('mes')"><input type="checkbox" id="chk-mes-all" checked> Todos</div>
+          <div id="opts-mes"></div>
+        </div>
       </div>
-      <div class="filter-group">
+
+      <div class="filter-group" id="fg-incubatorio">
         <label class="filter-label">Incubatório</label>
-        <select class="filter-select" id="filter-incubatorio" onchange="applyFilters()"><option value="">Todos</option></select>
+        <div class="ms-trigger" id="ms-incubatorio" onclick="toggleDropdown('incubatorio')">
+          <span class="ms-trigger-text" id="ms-incubatorio-txt">Todos</span>
+          <span class="ms-trigger-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="dd-incubatorio">
+          <input class="ms-search" type="text" placeholder="Buscar…" oninput="filterOpts('incubatorio', this.value)">
+          <div class="ms-option all-opt" onclick="toggleAll('incubatorio')"><input type="checkbox" id="chk-incubatorio-all" checked> Todos</div>
+          <div id="opts-incubatorio"></div>
+        </div>
       </div>
-      <div class="filter-group">
+
+      <div class="filter-group" id="fg-unidade">
         <label class="filter-label">Região (Unidade)</label>
-        <select class="filter-select" id="filter-unidade" onchange="applyFilters()"><option value="">Todas</option></select>
+        <div class="ms-trigger" id="ms-unidade" onclick="toggleDropdown('unidade')">
+          <span class="ms-trigger-text" id="ms-unidade-txt">Todas</span>
+          <span class="ms-trigger-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="dd-unidade">
+          <input class="ms-search" type="text" placeholder="Buscar…" oninput="filterOpts('unidade', this.value)">
+          <div class="ms-option all-opt" onclick="toggleAll('unidade')"><input type="checkbox" id="chk-unidade-all" checked> Todas</div>
+          <div id="opts-unidade"></div>
+        </div>
       </div>
-      <div class="filter-group">
+
+      <div class="filter-group" id="fg-raca">
         <label class="filter-label">Linhagem (Raça)</label>
-        <select class="filter-select" id="filter-raca" onchange="applyFilters()"><option value="">Todas</option></select>
+        <div class="ms-trigger" id="ms-raca" onclick="toggleDropdown('raca')">
+          <span class="ms-trigger-text" id="ms-raca-txt">Todas</span>
+          <span class="ms-trigger-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="dd-raca">
+          <input class="ms-search" type="text" placeholder="Buscar…" oninput="filterOpts('raca', this.value)">
+          <div class="ms-option all-opt" onclick="toggleAll('raca')"><input type="checkbox" id="chk-raca-all" checked> Todas</div>
+          <div id="opts-raca"></div>
+        </div>
       </div>
-      <div class="filter-group">
+
+      <div class="filter-group" id="fg-tipoovo">
         <label class="filter-label">Tipo de Ovo</label>
-        <select class="filter-select" id="filter-tipoovo" onchange="applyFilters()"><option value="">Todos</option></select>
+        <div class="ms-trigger" id="ms-tipoovo" onclick="toggleDropdown('tipoovo')">
+          <span class="ms-trigger-text" id="ms-tipoovo-txt">Todos</span>
+          <span class="ms-trigger-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="dd-tipoovo">
+          <input class="ms-search" type="text" placeholder="Buscar…" oninput="filterOpts('tipoovo', this.value)">
+          <div class="ms-option all-opt" onclick="toggleAll('tipoovo')"><input type="checkbox" id="chk-tipoovo-all" checked> Todos</div>
+          <div id="opts-tipoovo"></div>
+        </div>
       </div>
-      <div class="filter-group">
+
+      <div class="filter-group" id="fg-faixa">
         <label class="filter-label">Faixa Etária</label>
-        <select class="filter-select" id="filter-faixa" onchange="applyFilters()"><option value="">Todas</option></select>
+        <div class="ms-trigger" id="ms-faixa" onclick="toggleDropdown('faixa')">
+          <span class="ms-trigger-text" id="ms-faixa-txt">Todas</span>
+          <span class="ms-trigger-arrow">▼</span>
+        </div>
+        <div class="ms-dropdown" id="dd-faixa">
+          <input class="ms-search" type="text" placeholder="Buscar…" oninput="filterOpts('faixa', this.value)">
+          <div class="ms-option all-opt" onclick="toggleAll('faixa')"><input type="checkbox" id="chk-faixa-all" checked> Todas</div>
+          <div id="opts-faixa"></div>
+        </div>
       </div>
+
       <button class="filter-btn secondary" onclick="clearFilters()">Limpar</button>
     </div>
 
@@ -335,7 +408,7 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
     <div id="page-eficiencia" class="nav-page active">
       <div class="section-hdr"><div class="section-hdr-bar"></div><div class="section-hdr-title">Eficiência de Eclosão</div></div>
       <div class="chart-block">
-        <div class="chart-block-title" id="title-eficiencia">Histórico Temporal — Eficiência de Eclosão (%) por Mês</div>
+        <div class="chart-block-title">Histórico Temporal — Eficiência de Eclosão (%) por Mês</div>
         <div class="chart-pro-wrap">
           <div class="acum-panel-stack">
             <div class="acum-panel" id="panel-cur-eficiencia"></div>
@@ -343,7 +416,16 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
           </div>
           <div class="chart-line-panel"><div class="chart-line-inner"><canvas id="chart-eficiencia"></canvas></div></div>
         </div>
-        <div class="chart-block-title" style="margin-top:.5rem" id="title-eclreal">Histórico Temporal — Eclosão Real (%) por Mês</div>
+        <div class="summary-wrap" id="summary-eficiencia"></div>
+        <div class="data-table-wrap"><table class="data-table" id="table-eficiencia"><thead></thead><tbody></tbody></table></div>
+      </div>
+    </div>
+
+    <!-- ══ PAGE: ECLOSÃO ══ -->
+    <div id="page-eclosaoreal" class="nav-page">
+      <div class="section-hdr"><div class="section-hdr-bar"></div><div class="section-hdr-title">Eclosão Real</div></div>
+      <div class="chart-block">
+        <div class="chart-block-title">Histórico Temporal — Eclosão (%) por Mês</div>
         <div class="chart-pro-wrap">
           <div class="acum-panel-stack">
             <div class="acum-panel" id="panel-cur-eclreal"></div>
@@ -351,7 +433,8 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
           </div>
           <div class="chart-line-panel"><div class="chart-line-inner"><canvas id="chart-eclreal"></canvas></div></div>
         </div>
-        <div class="data-table-wrap"><table class="data-table" id="table-eficiencia"><thead></thead><tbody></tbody></table></div>
+        <div class="summary-wrap" id="summary-eclosaoreal"></div>
+        <div class="data-table-wrap"><table class="data-table" id="table-eclosaoreal"><thead></thead><tbody></tbody></table></div>
       </div>
     </div>
 
@@ -515,31 +598,48 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
 
 <script>
 /* ══════════════════════════════════════════
-   STATE
+   REGISTRO GLOBAL DO PLUGIN — uma única vez
 ══════════════════════════════════════════ */
 Chart.register(ChartDataLabels);
+
+// Desativa datalabels globalmente por padrão; cada gráfico ativa só onde quer
+Chart.defaults.set('plugins.datalabels', { display: false });
+
+/* ══════════════════════════════════════════
+   STATE
+══════════════════════════════════════════ */
 let RAW_DATA = [], FILTERED = [], CHARTS = {}, currentFile = '';
 let pendingFile = null;
 
 /* ══════════════════════════════════════════
    UPLOAD
 ══════════════════════════════════════════ */
-const dropZone  = document.getElementById('drop-zone');
-const fileInput = document.getElementById('file-input');
-const loadBtn   = document.getElementById('load-btn');
-const fileNameEl= document.getElementById('file-name-display');
-const errorEl   = document.getElementById('upload-error');
+const dropZone   = document.getElementById('drop-zone');
+const fileInput  = document.getElementById('file-input');
+const loadBtn    = document.getElementById('load-btn');
+const fileNameEl = document.getElementById('file-name-display');
+const errorEl    = document.getElementById('upload-error');
 
 dropZone.addEventListener('dragover', e => { e.preventDefault(); dropZone.classList.add('drag-over'); });
 dropZone.addEventListener('dragleave', () => dropZone.classList.remove('drag-over'));
-dropZone.addEventListener('drop', e => { e.preventDefault(); dropZone.classList.remove('drag-over'); if (e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0]); });
+dropZone.addEventListener('drop', e => {
+  e.preventDefault(); dropZone.classList.remove('drag-over');
+  if (e.dataTransfer.files[0]) handleFileSelect(e.dataTransfer.files[0]);
+});
 fileInput.addEventListener('change', () => { if (fileInput.files[0]) handleFileSelect(fileInput.files[0]); });
 
 function handleFileSelect(file) {
   errorEl.classList.remove('visible');
-  if (!file.name.match(/\.(xlsx|xls)$/i)) { errorEl.textContent='Formato inválido. Use .xlsx ou .xls.'; errorEl.classList.add('visible'); loadBtn.disabled=true; return; }
-  pendingFile=file; currentFile=file.name;
-  fileNameEl.textContent='📎 '+file.name; fileNameEl.classList.add('visible'); loadBtn.disabled=false;
+  if (!file.name.match(/\.(xlsx|xls)$/i)) {
+    errorEl.textContent = 'Formato inválido. Use .xlsx ou .xls.';
+    errorEl.classList.add('visible');
+    loadBtn.disabled = true;
+    return;
+  }
+  pendingFile = file; currentFile = file.name;
+  fileNameEl.textContent = '📎 ' + file.name;
+  fileNameEl.classList.add('visible');
+  loadBtn.disabled = false;
 }
 
 loadBtn.addEventListener('click', () => {
@@ -548,10 +648,14 @@ loadBtn.addEventListener('click', () => {
   const reader = new FileReader();
   reader.onload = e => {
     try {
-      const wb = XLSX.read(e.target.result, {type:'array',cellDates:true});
+      const wb = XLSX.read(e.target.result, { type: 'array', cellDates: true });
       const ws = wb.Sheets[wb.SheetNames[0]];
-      parseData(XLSX.utils.sheet_to_json(ws, {defval:''}));
-    } catch(err) { hideLoading(); errorEl.textContent='Erro ao ler: '+err.message; errorEl.classList.add('visible'); }
+      parseData(XLSX.utils.sheet_to_json(ws, { defval: '' }));
+    } catch (err) {
+      hideLoading();
+      errorEl.textContent = 'Erro ao ler: ' + err.message;
+      errorEl.classList.add('visible');
+    }
   };
   reader.readAsArrayBuffer(pendingFile);
 });
@@ -559,255 +663,341 @@ loadBtn.addEventListener('click', () => {
 /* ══════════════════════════════════════════
    PARSE
 ══════════════════════════════════════════ */
-function nk(k){ return (k||'').toString().trim().replace(/\u00a0/g,' ').replace(/\s+/g,' '); }
+function nk(k) { return (k || '').toString().trim().replace(/\u00a0/g, ' ').replace(/\s+/g, ' '); }
 
 function parseData(rows) {
   showLoading('Processando dados…');
-  const norm = rows.map(r => { const o={}; Object.keys(r).forEach(k=>{ o[nk(k)]=r[k]; }); return o; });
+  const norm = rows.map(r => {
+    const o = {};
+    Object.keys(r).forEach(k => { o[nk(k)] = r[k]; });
+    return o;
+  });
 
-  RAW_DATA = norm.filter(r => r['Ovos Incub.'] && n(r['Ovos Incub.']) > 0);
-
-  // Normalise date → "AAAA-MM"
-  RAW_DATA = RAW_DATA.map(r => {
+  RAW_DATA = norm.filter(r => r['Ovos Incub.'] && n(r['Ovos Incub.']) > 0).map(r => {
     let dt = r['Dt Nasc.'];
     let mes = '';
     if (dt instanceof Date && !isNaN(dt)) {
-      const y = dt.getFullYear(); const m = String(dt.getMonth()+1).padStart(2,'0');
-      mes = `${y}-${m}`;
+      mes = `${dt.getFullYear()}-${String(dt.getMonth() + 1).padStart(2, '0')}`;
     } else if (typeof dt === 'number') {
-      // Excel serial
-      const d = new Date(Math.round((dt - 25569)*86400*1000));
-      const y = d.getFullYear(); const m = String(d.getMonth()+1).padStart(2,'0');
-      mes = `${y}-${m}`;
+      const d = new Date(Math.round((dt - 25569) * 86400 * 1000));
+      mes = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`;
     } else if (typeof dt === 'string') {
-      mes = dt.slice(0,7);
+      mes = dt.slice(0, 7);
     }
-    return {...r, '_mes': mes, '_ano': mes.slice(0,4)};
+    return { ...r, '_mes': mes, '_ano': mes.slice(0, 4) };
   });
 
-  if (!RAW_DATA.length) { hideLoading(); errorEl.textContent='Nenhum dado encontrado.'; errorEl.classList.add('visible'); return; }
+  if (!RAW_DATA.length) {
+    hideLoading();
+    errorEl.textContent = 'Nenhum dado encontrado.';
+    errorEl.classList.add('visible');
+    return;
+  }
 
   FILTERED = [...RAW_DATA];
-  populateFilters();
+  initializeFilterOptions();
   document.getElementById('sidebar-filename').textContent = currentFile;
   hideLoading();
-  document.getElementById('upload-screen').style.display='none';
-  document.getElementById('dashboard').style.display='block';
+  document.getElementById('upload-screen').style.display = 'none';
+  document.getElementById('dashboard').style.display = 'block';
   renderAll();
 }
 
 /* ══════════════════════════════════════════
-   FILTERS
+   FILTROS — sistema multi-select
 ══════════════════════════════════════════ */
-function populateFilters() {
-  fillSel('filter-mes',         [...new Set(RAW_DATA.map(r=>r['_mes']).filter(Boolean))].sort());
-  fillSel('filter-incubatorio', [...new Set(RAW_DATA.map(r=>r['Incubatório']).filter(Boolean))].sort());
-  fillSel('filter-unidade',     [...new Set(RAW_DATA.map(r=>r['Unidade Granja']).filter(Boolean))].sort());
-  fillSel('filter-raca',        [...new Set(RAW_DATA.map(r=>r['Raça Ave']).filter(Boolean))].sort());
-  fillSel('filter-tipoovo',     [...new Set(RAW_DATA.map(r=>r['Tp. Ovo']).filter(Boolean))].sort());
-  fillSel('filter-faixa',       [...new Set(RAW_DATA.map(r=>r['Faixa Idade']).filter(Boolean))].sort());
+const FILTER_MAPPING = {
+  mes:         '_mes',
+  incubatorio: 'Incubatório',
+  unidade:     'Unidade Granja',
+  raca:        'Raça Ave',
+  tipoovo:     'Tp. Ovo',
+  faixa:       'Faixa Idade'
+};
+
+const FILTER_LABELS = {
+  mes: 'Todos', incubatorio: 'Todos', unidade: 'Todas',
+  raca: 'Todas', tipoovo: 'Todos', faixa: 'Todas'
+};
+
+const MS = {};       // Set de selecionados por filtro
+const MS_VALS = {};  // Valores únicos ordenados por filtro
+
+function initializeFilterOptions() {
+  Object.keys(FILTER_MAPPING).forEach(key => {
+    const col = FILTER_MAPPING[key];
+    MS_VALS[key] = [...new Set(RAW_DATA.map(r => r[col]))]
+      .filter(v => v !== undefined && v !== null && v !== '')
+      .map(String)
+      .sort();
+    MS[key] = new Set(MS_VALS[key]);
+    buildOpts(key);
+    updateTriggerText(key);
+  });
 }
-function fillSel(id, vals) {
-  const s=document.getElementById(id); const cur=s.value;
-  s.innerHTML='<option value="">Todos</option>';
-  vals.forEach(v=>{ const o=document.createElement('option'); o.value=v; o.textContent=v; s.appendChild(o); });
-  if (vals.includes(cur)) s.value=cur;
+
+function buildOpts(key, search = '') {
+  const container = document.getElementById(`opts-${key}`);
+  if (!container) return;
+  const term = search.toLowerCase();
+  const vals = MS_VALS[key].filter(v => !term || v.toLowerCase().includes(term));
+  container.innerHTML = vals.map(v => {
+    const esc = v.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+    return `<div class="ms-option" onclick="toggleOpt('${key}','${esc}')">
+      <input type="checkbox" ${MS[key].has(v) ? 'checked' : ''} onclick="event.stopPropagation();toggleOpt('${key}','${esc}')">
+      ${v}
+    </div>`;
+  }).join('');
+  const allChk = document.getElementById(`chk-${key}-all`);
+  if (allChk) allChk.checked = MS[key].size === MS_VALS[key].length;
 }
+
+function filterOpts(key, search) { buildOpts(key, search); }
+
+function toggleOpt(key, val) {
+  MS[key].has(val) ? MS[key].delete(val) : MS[key].add(val);
+  const search = document.querySelector(`#dd-${key} .ms-search`)?.value || '';
+  buildOpts(key, search);
+  updateTriggerText(key);
+  applyFilters();
+}
+
+function toggleAll(key) {
+  MS[key] = MS[key].size === MS_VALS[key].length ? new Set() : new Set(MS_VALS[key]);
+  const search = document.querySelector(`#dd-${key} .ms-search`)?.value || '';
+  buildOpts(key, search);
+  updateTriggerText(key);
+  applyFilters();
+}
+
+function updateTriggerText(key) {
+  const txtSpan = document.getElementById(`ms-${key}-txt`);
+  const trigger = document.getElementById(`ms-${key}`);
+  if (!txtSpan || !trigger) return;
+  const total = MS_VALS[key].length;
+  const sel = MS[key].size;
+  const lbl = FILTER_LABELS[key] || 'Todos';
+  if (sel === 0) {
+    txtSpan.innerHTML = '<span style="color:var(--text-3)">Nenhum</span>';
+    trigger.classList.add('active');
+  } else if (sel === total) {
+    txtSpan.textContent = lbl;
+    trigger.classList.remove('active');
+  } else if (sel === 1) {
+    txtSpan.textContent = [...MS[key]][0];
+    trigger.classList.add('active');
+  } else {
+    txtSpan.innerHTML = `${lbl} <span class="ms-badge">${sel}</span>`;
+    trigger.classList.add('active');
+  }
+}
+
+function toggleDropdown(key) {
+  const dd = document.getElementById('dd-' + key);
+  const trigger = document.getElementById('ms-' + key);
+  const isOpen = dd?.classList.contains('open');
+  document.querySelectorAll('.ms-dropdown.open').forEach(d => d.classList.remove('open'));
+  document.querySelectorAll('.ms-trigger.open').forEach(t => t.classList.remove('open'));
+  if (!isOpen && dd && trigger) { dd.classList.add('open'); trigger.classList.add('open'); }
+}
+
+document.addEventListener('click', e => {
+  if (!e.target.closest('.filter-group')) {
+    document.querySelectorAll('.ms-dropdown.open').forEach(d => d.classList.remove('open'));
+    document.querySelectorAll('.ms-trigger.open').forEach(t => t.classList.remove('open'));
+  }
+});
+
 function applyFilters() {
-  const mes   = document.getElementById('filter-mes').value;
-  const incub = document.getElementById('filter-incubatorio').value;
-  const unid  = document.getElementById('filter-unidade').value;
-  const raca  = document.getElementById('filter-raca').value;
-  const tpovo = document.getElementById('filter-tipoovo').value;
-  const faixa = document.getElementById('filter-faixa').value;
   FILTERED = RAW_DATA.filter(r => {
-    if (mes   && r['_mes']           !== mes)   return false;
-    if (incub && r['Incubatório']    !== incub)  return false;
-    if (unid  && r['Unidade Granja'] !== unid)   return false;
-    if (raca  && r['Raça Ave']       !== raca)   return false;
-    if (tpovo && r['Tp. Ovo']        !== tpovo)  return false;
-    if (faixa && r['Faixa Idade']    !== faixa)  return false;
+    for (const key in FILTER_MAPPING) {
+      if (MS[key].size < MS_VALS[key].length) {
+        if (!MS[key].has(String(r[FILTER_MAPPING[key]] || ''))) return false;
+      }
+    }
     return true;
   });
   renderAll();
 }
+
 function clearFilters() {
-  ['filter-mes','filter-incubatorio','filter-unidade','filter-raca','filter-tipoovo','filter-faixa'].forEach(id=>document.getElementById(id).value='');
-  FILTERED=[...RAW_DATA]; renderAll();
+  Object.keys(FILTER_MAPPING).forEach(key => {
+    MS[key] = new Set(MS_VALS[key]);
+    buildOpts(key);
+    updateTriggerText(key);
+    const inp = document.querySelector(`#dd-${key} .ms-search`);
+    if (inp) inp.value = '';
+  });
+  FILTERED = [...RAW_DATA];
+  renderAll();
+}
+
+/*
+  Retorna os dados de RAW_DATA filtrados por todos os filtros EXCETO "mes",
+  respeitando o novo sistema MS/FILTER_MAPPING.
+  Usado nos gráficos temporais para manter o histórico completo de anos.
+*/
+function getHistoricoData() {
+  return RAW_DATA.filter(r => {
+    for (const key in FILTER_MAPPING) {
+      if (key === 'mes') continue; // ignora filtro de mês
+      if (MS[key].size < MS_VALS[key].length) {
+        if (!MS[key].has(String(r[FILTER_MAPPING[key]] || ''))) return false;
+      }
+    }
+    return true;
+  });
 }
 
 /* ══════════════════════════════════════════
-   NAVIGATION
+   NAVEGAÇÃO
 ══════════════════════════════════════════ */
 const PAGE_LABELS = {
-  eficiencia:'Eficiência de Eclosão', regiao:'Participação de Região',
-  linhagem:'Participação de Linhagem', faixa:'Faixa Etária',
-  tipoovo:'Tipo de Ovo', diasestoque:'Dias de Estoque',
-  incubatorios:'Incubatórios', impacto:'Impacto Formação', ovoscopia:'Ovoscopia'
+  eficiencia: 'Eficiência de Eclosão', eclosaoreal: 'Eclosão',
+  regiao: 'Participação de Região', linhagem: 'Participação de Linhagem',
+  faixa: 'Faixa Etária', tipoovo: 'Tipo de Ovo', diasestoque: 'Dias de Estoque',
+  incubatorios: 'Incubatórios', impacto: 'Impacto Formação', ovoscopia: 'Ovoscopia'
 };
+
 function setPage(page, el) {
-  document.querySelectorAll('.nav-item').forEach(i=>i.classList.remove('active'));
-  if(el) el.classList.add('active');
-  document.querySelectorAll('.nav-page').forEach(p=>p.classList.remove('active'));
-  document.getElementById('page-'+page).classList.add('active');
-  document.getElementById('active-page-label').textContent=PAGE_LABELS[page]||'';
-  setTimeout(()=>{ Object.values(CHARTS).forEach(c=>{ try{c.resize();}catch(e){} }); },60);
+  document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+  if (el) el.classList.add('active');
+  document.querySelectorAll('.nav-page').forEach(p => p.classList.remove('active'));
+  document.getElementById('page-' + page).classList.add('active');
+  document.getElementById('active-page-label').textContent = PAGE_LABELS[page] || '';
+  setTimeout(() => Object.values(CHARTS).forEach(c => { try { c.resize(); } catch (e) {} }), 60);
 }
 
 /* ══════════════════════════════════════════
    HELPERS
 ══════════════════════════════════════════ */
-function n(v){ return parseFloat(v)||0; }
-function fmt(v,dec=2){ return n(v).toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
-function fmtN(v,dec=0){ return n(v).toLocaleString('pt-BR',{minimumFractionDigits:dec,maximumFractionDigits:dec}); }
-function sum(arr,k){ return arr.reduce((s,r)=>s+n(r[k]),0); }
-function pct(a,b){ return b>0?(a/b)*100:0; }
+const n    = v => parseFloat(v) || 0;
+const fmt  = (v, dec = 2) => n(v).toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+const fmtN = (v, dec = 0) => n(v).toLocaleString('pt-BR', { minimumFractionDigits: dec, maximumFractionDigits: dec });
+const sum  = (arr, k) => arr.reduce((s, r) => s + n(r[k]), 0);
+const pct  = (a, b) => b > 0 ? (a / b) * 100 : 0;
 
-// Eficiência de Eclosão (%) = (Eclosão / Eclosão Pdr) * 100
-function calcEfic(rows){ const e=sum(rows,'Eclosão'); const ep=sum(rows,'Eclosão Pdr'); return pct(e,ep); }
-// Eclosão Real (%) = (Eclosão / Ovos Incub.) * 100
-function calcEclReal(rows){ const e=sum(rows,'Eclosão'); const oi=sum(rows,'Ovos Incub.'); return pct(e,oi); }
-// Padrão Eficiência (%) = (Efic. Eclo. Pdr / Eclosão Pdr) * 100
-function calcPdrEfic(rows){ const ef=sum(rows,'Efic. Eclo. Pdr'); const ep=sum(rows,'Eclosão Pdr'); return pct(ef,ep); }
-// Padrão Eclosão (%) = (Eclosão Pdr / Ovos Incub.) * 100
-function calcPdrEcl(rows){ const ep=sum(rows,'Eclosão Pdr'); const oi=sum(rows,'Ovos Incub.'); return pct(ep,oi); }
-// Impacto de Pintos = Eclosão Pdr - Eclosão
-function calcImpacto(rows){ return sum(rows,'Eclosão Pdr')-sum(rows,'Eclosão'); }
-// Dias de Estoque Médio = Σ(Ovos * Dias) / Σ(Ovos)
-function calcDiasMedio(rows){ const num=rows.reduce((s,r)=>s+n(r['Ovos Incub.'])*n(r['Dias Estoq.']),0); const den=sum(rows,'Ovos Incub.'); return den>0?num/den:0; }
-// % Volume = (Ovos Incub. grupo / TOTAL Ovos Incub.) * 100
-function calcVolPct(rows, total){ const g=sum(rows,'Ovos Incub.'); return pct(g,total); }
+const calcEfic     = rows => pct(sum(rows, 'Eclosão'), sum(rows, 'Eclosão Pdr'));
+const calcEclReal  = rows => pct(sum(rows, 'Eclosão'), sum(rows, 'Ovos Incub.'));
+const calcPdrEfic  = rows => pct(sum(rows, 'Efic. Eclo. Pdr'), sum(rows, 'Eclosão Pdr'));
+const calcPdrEcl   = rows => pct(sum(rows, 'Eclosão Pdr'), sum(rows, 'Ovos Incub.'));
+const calcImpacto  = rows => sum(rows, 'Eclosão Pdr') - sum(rows, 'Eclosão');
+const calcDiasMedio = rows => {
+  const num = rows.reduce((s, r) => s + n(r['Ovos Incub.']) * n(r['Dias Estoq.']), 0);
+  const den = sum(rows, 'Ovos Incub.');
+  return den > 0 ? num / den : 0;
+};
+const calcVolPct = (rows, total) => pct(sum(rows, 'Ovos Incub.'), total);
 
-function badgeCls(diff,inv=false){ const ok=inv?(diff<=0):(diff>=0); return ok?'badge-up':(Math.abs(diff)<2?'badge-warn':'badge-down'); }
-function semBadge(diff,inv=false){
-  const cls=badgeCls(diff,inv);
-  return `<span class="badge ${cls}">${diff>=0?'▲':'▼'} ${fmt(Math.abs(diff))}</span>`;
-}
-function semBadgePct(diff,inv=false){
-  const cls=badgeCls(diff,inv);
-  return `<span class="badge ${cls}">${diff>=0?'▲':'▼'} ${fmt(Math.abs(diff))}%</span>`;
+function semBadgePct(diff) {
+  const cls = diff >= 0 ? 'badge-up' : Math.abs(diff) < 2 ? 'badge-warn' : 'badge-down';
+  return `<span class="badge ${cls}">${diff >= 0 ? '▲' : '▼'} ${fmt(Math.abs(diff))}%</span>`;
 }
 
-function showLoading(txt){ document.getElementById('loading-text').textContent=txt||'Processando…'; document.getElementById('loading').classList.add('visible'); }
-function hideLoading(){ document.getElementById('loading').classList.remove('visible'); }
+function showLoading(txt) {
+  document.getElementById('loading-text').textContent = txt || 'Processando…';
+  document.getElementById('loading').classList.add('visible');
+}
+function hideLoading() { document.getElementById('loading').classList.remove('visible'); }
 
-function destroyChart(k){ if(CHARTS[k]){ try{CHARTS[k].destroy();}catch(e){} delete CHARTS[k]; } }
+function destroyChart(k) {
+  if (CHARTS[k]) { try { CHARTS[k].destroy(); } catch (e) {} delete CHARTS[k]; }
+}
 
 const PALETTE = [
-  'rgba(1,67,51,.8)','rgba(251,190,19,.85)','rgba(7,140,173,.8)','rgba(220,38,38,.8)',
-  'rgba(107,70,193,.8)','rgba(0,200,80,.75)','rgba(245,158,11,.8)','rgba(83,209,236,.8)',
-  'rgba(66,104,77,.8)','rgba(180,83,9,.8)'
+  'rgba(1,67,51,.8)', 'rgba(251,190,19,.85)', 'rgba(7,140,173,.8)', 'rgba(220,38,38,.8)',
+  'rgba(107,70,193,.8)', 'rgba(0,200,80,.75)', 'rgba(245,158,11,.8)', 'rgba(83,209,236,.8)',
+  'rgba(66,104,77,.8)', 'rgba(180,83,9,.8)'
 ];
-const PALETTE_BORDER = PALETTE.map(c=>c.replace(/[\d.]+\)$/,'1)'));
+const PALETTE_BORDER = PALETTE.map(c => c.replace(/[\d.]+\)$/, '1)'));
 
 /* ══════════════════════════════════════════
    GROUP BY
 ══════════════════════════════════════════ */
 function groupBy(arr, key) {
-  const map = {};
-  arr.forEach(r => { const k=(r[key]||'—').toString().trim(); if(!map[k]) map[k]=[]; map[k].push(r); });
-  return map;
+  return arr.reduce((map, r) => {
+    const k = (r[key] || '—').toString().trim();
+    (map[k] = map[k] || []).push(r);
+    return map;
+  }, {});
 }
-function sortedKeys(map){ return Object.keys(map).sort(); }
+const sortedKeys = map => Object.keys(map).sort();
 
 /* ══════════════════════════════════════════
    KPI ROW
 ══════════════════════════════════════════ */
 function renderKPIs() {
   const d = FILTERED;
-  const totalOvos = sum(d,'Ovos Incub.');
-  const efic      = calcEfic(d);
-  const pdrEfic   = calcPdrEfic(d);
-  const eclReal   = calcEclReal(d);
-  const pdrEcl    = calcPdrEcl(d);
-  const impacto   = calcImpacto(d);
-  const diasMed   = calcDiasMedio(d);
-  const difEfic   = efic - pdrEfic;
-  const difEcl    = eclReal - pdrEcl;
-
+  const efic    = calcEfic(d);
+  const pdrEfic = calcPdrEfic(d);
+  const eclReal = calcEclReal(d);
+  const pdrEcl  = calcPdrEcl(d);
+  const impacto = calcImpacto(d);
   const kpis = [
-    { label:'Ovos Incubados',       val: fmtN(totalOvos),                color:'#078CAD', sub:`Período selecionado` },
-    { label:'Eficiência de Eclosão', val: fmt(efic,2)+'%',               color: efic>=pdrEfic?'#42684D':'#DC2626', sub:`Padrão: ${fmt(pdrEfic,2)}%`, badge: semBadgePct(difEfic) },
-    { label:'Eclosão Real',          val: fmt(eclReal,2)+'%',             color: eclReal>=pdrEcl?'#42684D':'#DC2626', sub:`Padrão: ${fmt(pdrEcl,2)}%`, badge: semBadgePct(difEcl) },
-    { label:'Impacto de Pintos',     val: (impacto>=0?'+':'')+fmtN(impacto,0), color: impacto<=0?'#42684D':'#DC2626', sub:`Pdr - Real` },
-    { label:'Dias de Estoque Médio', val: fmt(diasMed,2),                 color:'#6B46C1', sub:`Dias médio ponderado` },
+    { label: 'Ovos Incubados',        val: fmtN(sum(d, 'Ovos Incub.')),               color: '#078CAD', sub: 'Período selecionado' },
+    { label: 'Eficiência de Eclosão', val: fmt(efic) + '%',                            color: efic >= pdrEfic ? '#42684D' : '#DC2626', sub: `Padrão: ${fmt(pdrEfic)}%`, badge: semBadgePct(efic - pdrEfic) },
+    { label: 'Eclosão Real',          val: fmt(eclReal) + '%',                         color: eclReal >= pdrEcl ? '#42684D' : '#DC2626', sub: `Padrão: ${fmt(pdrEcl)}%`, badge: semBadgePct(eclReal - pdrEcl) },
+    { label: 'Impacto de Pintos',     val: (impacto >= 0 ? '+' : '') + fmtN(impacto), color: impacto <= 0 ? '#42684D' : '#DC2626', sub: 'Pdr - Real' },
+    { label: 'Dias de Estoque Médio', val: fmt(calcDiasMedio(d)),                      color: '#6B46C1', sub: 'Dias médio ponderado' },
   ];
-  document.getElementById('kpi-row').innerHTML = kpis.map(k=>`
+  document.getElementById('kpi-row').innerHTML = kpis.map(k => `
     <div class="kpi-card" style="border-bottom-color:${k.color}">
       <div class="kpi-label">${k.label}</div>
       <div class="kpi-val" style="color:${k.color}">${k.val}</div>
       <div class="kpi-sub">${k.sub}</div>
-      ${k.badge?`<div>${k.badge}</div>`:''}
+      ${k.badge ? `<div>${k.badge}</div>` : ''}
     </div>`).join('');
 }
 
 /* ══════════════════════════════════════════
    ACUM PANEL
 ══════════════════════════════════════════ */
-function renderAcumSimple(elId, label, val, pdr, suffix, color, isMain) {
-  const el=document.getElementById(elId); if(!el) return;
-  const dif=val-pdr;
-  const badgeHtml=(()=>{ const cls=dif>=0?'acum-badge-up':Math.abs(dif)<2?'acum-badge-warn':'acum-badge-down'; return `<div class="acum-badge ${cls}">${dif>=0?'▲':'▼'} ${fmt(Math.abs(dif))}${suffix}</div>`; })();
-  el.innerHTML=`
+function renderAcumSimple(elId, label, val, pdr, suffix, color) {
+  const el = document.getElementById(elId);
+  if (!el) return;
+  const dif = val - pdr;
+  const cls = dif >= 0 ? 'acum-badge-up' : Math.abs(dif) < 2 ? 'acum-badge-warn' : 'acum-badge-down';
+  el.innerHTML = `
     <div class="acum-panel-header">${label}</div>
     <div class="acum-panel-val" style="color:${color}">${fmt(val)}${suffix}</div>
-    <div class="acum-panel-meta-row"><span class="acum-panel-meta-label">Padrão</span><span class="acum-panel-meta-val">${fmt(pdr)}${suffix}</span></div>
-    ${badgeHtml}`;
+    <div class="acum-panel-meta-row">
+      <span class="acum-panel-meta-label">Padrão</span>
+      <span class="acum-panel-meta-val">${fmt(pdr)}${suffix}</span>
+    </div>
+    <div class="acum-badge ${cls}">${dif >= 0 ? '▲' : '▼'} ${fmt(Math.abs(dif))}${suffix}</div>`;
 }
 
 /* ══════════════════════════════════════════
-   LINE CHART (temporal por mês)
+   CONSTANTES DE COR DOS GRÁFICOS DE LINHA
 ══════════════════════════════════════════ */
 const C = {
-  real2026:   'rgb(1,67,51)',       real2026bg: 'rgba(1,67,51,.08)',
+  real2026:   'rgb(1,67,51)',
+  real2026bg: 'rgba(1,67,51,.08)',
   pdr:        'rgb(251,190,19)',
   real2025:   'rgb(7,140,173)',
 };
 
-/*function buildLineChart(canvasId, key, labels, ds2026, dsPdr, ds2025, yLabel, meta2025label) {
-  destroyChart(key);
-  const ctx=document.getElementById(canvasId); if(!ctx) return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    const datasets=[
-      { label:'Real 2026', data:ds2026, borderColor:C.real2026, backgroundColor:C.real2026bg, fill:true, tension:.4, pointRadius:4, pointBackgroundColor:C.real2026, pointBorderColor:'#fff', pointBorderWidth:2, borderWidth:2.5, order:1 },
-      { label:'Padrão', data:dsPdr, borderColor:C.pdr, borderDash:[6,3], tension:.3, pointRadius:3, pointBackgroundColor:C.pdr, fill:false, borderWidth:2, order:2 }
-    ];
-    if (ds2025 && ds2025.some(v=>v!==null)) {
-      datasets.push({ label:meta2025label||'Real 2025', data:ds2025, borderColor:C.real2025, borderDash:[3,3], tension:.4, pointRadius:3, pointBackgroundColor:C.real2025, fill:false, borderWidth:1.5, order:3 });
-    }
-    CHARTS[key]=new Chart(ctx,{ type:'line', data:{ labels, datasets }, options:{
-      responsive:true, maintainAspectRatio:false,
-      interaction:{mode:'index',intersect:false},
-      plugins:{ 
-        legend:{ position:'bottom', labels:{ boxWidth:10, boxHeight:2, font:{size:10,family:'Inter'}, color:'#64748b', padding:12 } }, tooltip:{ backgroundColor:'rgba(15,25,35,.92)', titleColor:'#f0f4f8', bodyColor:'#a8b8c8', padding:10, cornerRadius:6,
-        callbacks:{ label:c=>` ${c.dataset.label}: ${fmt(c.parsed.y)}${yLabel?(' '+yLabel):''}` } }, 
-        datalabels:{ display:true, anchor:'end', align:'top', offset:4, color:'#334155', font:{ size:10, weight:'bold', family:'Inter' }, formatter:(value)=> value != null ? fmt(value) : '' } 
-      }
-      },
-      scales:{
-        x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10,family:'Inter'},color:'#94a3b8',maxRotation:0}},
-        y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},
-          title:{display:true,text:yLabel||'',font:{size:9,family:'Inter'},color:'#94a3b8'}}
-      }
-    }});
-  }));
-}*/
+const LABEL_MESES  = ['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+const SUFIXOS_MES  = ['01','02','03','04','05','06','07','08','09','10','11','12'];
 
-function buildLineChart(canvasId, key, labels, ds2026, dsPdr, ds2025, yLabel, meta2025label) {
+/* ══════════════════════════════════════════
+   BUILDERS DE GRÁFICOS
+══════════════════════════════════════════ */
+function buildLineChart(canvasId, key, labels, ds2026, dsPdr, ds2025, yLabel, label2025) {
   destroyChart(key);
   const ctx = document.getElementById(canvasId);
   if (!ctx) return;
-
   requestAnimationFrame(() => {
     const datasets = [
       { label: 'Real 2026', data: ds2026, borderColor: C.real2026, backgroundColor: C.real2026bg, fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: C.real2026, pointBorderColor: '#fff', pointBorderWidth: 2, borderWidth: 2.5, order: 1 },
-      { label: 'Padrão', data: dsPdr, borderColor: C.pdr, borderDash: [6, 3], tension: 0.3, pointRadius: 3, pointBackgroundColor: C.pdr, fill: false, borderWidth: 2, order: 2 }
     ];
-
-    if (ds2025?.some(v => v !== null)) {
-      datasets.push({ label: meta2025label || 'Real 2025', data: ds2025, borderColor: C.real2025, borderDash: [3, 3], tension: 0.4, pointRadius: 3, pointBackgroundColor: C.real2025, fill: false, borderWidth: 1.5, order: 3 });
+    // Padrão só entra se houver dados (dsPdr pode ser null em dias-estoque)
+    if (dsPdr && dsPdr.some(v => v !== null)) {
+      datasets.push({ label: 'Padrão', data: dsPdr, borderColor: C.pdr, borderDash: [6, 3], tension: 0.3, pointRadius: 3, pointBackgroundColor: C.pdr, fill: false, borderWidth: 2, order: 2 });
     }
-
+    if (ds2025 && ds2025.some(v => v !== null)) {
+      datasets.push({ label: label2025 || 'Real 2025', data: ds2025, borderColor: C.real2025, borderDash: [3, 3], tension: 0.4, pointRadius: 3, pointBackgroundColor: C.real2025, fill: false, borderWidth: 1.5, order: 3 });
+    }
     CHARTS[key] = new Chart(ctx, {
       type: 'line',
       data: { labels, datasets },
@@ -816,8 +1006,18 @@ function buildLineChart(canvasId, key, labels, ds2026, dsPdr, ds2025, yLabel, me
         interaction: { mode: 'index', intersect: false },
         plugins: {
           legend: { position: 'bottom', labels: { boxWidth: 10, boxHeight: 2, padding: 12, color: '#64748b', font: { size: 10, family: 'Inter' } } },
-          tooltip: { backgroundColor: 'rgba(15,25,35,.92)', titleColor: '#f0f4f8', bodyColor: '#a8b8c8', padding: 10, cornerRadius: 6, callbacks: { label: (c) => ` ${c.dataset.label}: ${fmt(c.parsed.y)}${yLabel ? ` ${yLabel}` : ''}` } },
-          datalabels: { display: (ctx) => ctx.dataset.label === 'Real 2026', anchor: 'end', align: 'top', offset: 4, color: C.real2026, font: { size: 10, weight: 'bold', family: 'Inter' }, formatter: (v) => v != null ? fmt(v) : '' }
+          tooltip: {
+            backgroundColor: 'rgba(15,25,35,.92)', titleColor: '#f0f4f8', bodyColor: '#a8b8c8', padding: 10, cornerRadius: 6,
+            callbacks: { label: c => ` ${c.dataset.label}: ${fmt(c.parsed.y)}${yLabel ? ` ${yLabel}` : ''}` }
+          },
+          // Datalabel apenas na série "Real 2026"
+          datalabels: {
+            display: ctx => ctx.dataset.label === 'Real 2026',
+            anchor: 'end', align: 'top', offset: 4,
+            color: C.real2026,
+            font: { size: 10, weight: 'bold', family: 'Inter' },
+            formatter: v => v != null ? fmt(v) : ''
+          }
         },
         scales: {
           x: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { color: '#94a3b8', maxRotation: 0, font: { size: 10, family: 'Inter' } } },
@@ -828,180 +1028,180 @@ function buildLineChart(canvasId, key, labels, ds2026, dsPdr, ds2025, yLabel, me
   });
 }
 
-function buildBarChart(canvasId, key, labels, datasets, yLabel, horizontal=false) {
+function buildBarChart(canvasId, key, labels, datasets, yLabel, horizontal = false) {
   destroyChart(key);
-  const ctx=document.getElementById(canvasId); if(!ctx) return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    CHARTS[key]=new Chart(ctx,{
-      type:'bar', data:{labels, datasets},
-      options:{
-        indexAxis: horizontal?'y':'x',
-        responsive:true, maintainAspectRatio:false,
-        plugins:{
-          legend:{position:'bottom',labels:{boxWidth:10,font:{size:10,family:'Inter'},color:'#64748b',padding:12}},
-          tooltip:{backgroundColor:'rgba(15,25,35,.92)',titleColor:'#f0f4f8',bodyColor:'#a8b8c8',padding:10,cornerRadius:6,
-            callbacks:{label:c=>` ${c.dataset.label}: ${fmt(c.parsed[horizontal?'x':'y'])}${yLabel?(' '+yLabel):''}`}}
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  requestAnimationFrame(() => {
+    CHARTS[key] = new Chart(ctx, {
+      type: 'bar',
+      data: { labels, datasets },
+      options: {
+        indexAxis: horizontal ? 'y' : 'x',
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10, family: 'Inter' }, color: '#64748b', padding: 12 } },
+          tooltip: {
+            backgroundColor: 'rgba(15,25,35,.92)', titleColor: '#f0f4f8', bodyColor: '#a8b8c8', padding: 10, cornerRadius: 6,
+            callbacks: { label: c => ` ${c.dataset.label}: ${fmt(c.parsed[horizontal ? 'x' : 'y'])}${yLabel ? (' ' + yLabel) : ''}` }
+          },
+          datalabels: { display: false }
         },
-        scales:{
-          x:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'}},
-          y:{grid:{color:'rgba(0,0,0,.04)'},ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},
-            title:{display:!horizontal&&!!yLabel,text:yLabel||'',font:{size:9,family:'Inter'},color:'#94a3b8'}}
+        scales: {
+          x: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' } },
+          y: { grid: { color: 'rgba(0,0,0,.04)' }, ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' }, title: { display: !horizontal && !!yLabel, text: yLabel || '', font: { size: 9, family: 'Inter' }, color: '#94a3b8' } }
         }
       }
     });
-  }));
-}
-
-function buildMixedBarLineChart(canvasId, key, labels, barDs, lineDs, yLeftLabel, yRightLabel) {
-  destroyChart(key);
-  const ctx=document.getElementById(canvasId); if(!ctx) return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    CHARTS[key]=new Chart(ctx,{
-      data:{labels, datasets:[...barDs,...lineDs]},
-      options:{
-        responsive:true, maintainAspectRatio:false,
-        interaction:{mode:'index',intersect:false},
-        plugins:{
-          legend:{position:'bottom',labels:{boxWidth:10,font:{size:10,family:'Inter'},color:'#64748b',padding:12}},
-          tooltip:{backgroundColor:'rgba(15,25,35,.92)',titleColor:'#f0f4f8',bodyColor:'#a8b8c8',padding:10,cornerRadius:6}
-        },
-        scales:{
-          x:{ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},grid:{color:'rgba(0,0,0,.04)'}},
-          y:{ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},title:{display:!!yLeftLabel,text:yLeftLabel||'',font:{size:9},color:'#94a3b8'},grid:{color:'rgba(0,0,0,.04)'}},
-          y1:{position:'right',ticks:{font:{size:10,family:'Inter'},color:C.real2026},title:{display:!!yRightLabel,text:yRightLabel||'',font:{size:9},color:C.real2026},grid:{drawOnChartArea:false}}
-        }
-      }
-    });
-  }));
+  });
 }
 
 function buildPizzaChart(canvasId, key, labels, data) {
   destroyChart(key);
-  const ctx=document.getElementById(canvasId); if(!ctx) return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    CHARTS[key]=new Chart(ctx,{
-      type:'doughnut', data:{labels, datasets:[{data, backgroundColor:PALETTE.slice(0,labels.length), borderColor:PALETTE_BORDER.slice(0,labels.length), borderWidth:2}]},
-      options:{
-        responsive:true, maintainAspectRatio:false, cutout:'55%',
-        plugins:{
-          legend:{position:'bottom',labels:{boxWidth:10,font:{size:10,family:'Inter'},color:'#64748b',padding:8}},
-          tooltip:{callbacks:{label:c=>`${c.label}: ${fmt(c.parsed)}%`}}
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  requestAnimationFrame(() => {
+    CHARTS[key] = new Chart(ctx, {
+      type: 'doughnut',
+      data: { labels, datasets: [{ data, backgroundColor: PALETTE.slice(0, labels.length), borderColor: PALETTE_BORDER.slice(0, labels.length), borderWidth: 2 }] },
+      options: {
+        responsive: true, maintainAspectRatio: false, cutout: '55%',
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10, family: 'Inter' }, color: '#64748b', padding: 8 } },
+          tooltip: { callbacks: { label: c => `${c.label}: ${fmt(c.parsed)}%` } },
+          datalabels: { display: false }
         }
       }
     });
-  }));
+  });
+}
+
+function buildMixedChart(canvasId, key, labels, barDs, lineDs, yLeftLabel, yRightLabel) {
+  destroyChart(key);
+  const ctx = document.getElementById(canvasId);
+  if (!ctx) return;
+  requestAnimationFrame(() => {
+    CHARTS[key] = new Chart(ctx, {
+      data: { labels, datasets: [...barDs, ...lineDs] },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10, family: 'Inter' }, color: '#64748b', padding: 12 } },
+          tooltip: { backgroundColor: 'rgba(15,25,35,.92)', titleColor: '#f0f4f8', bodyColor: '#a8b8c8', padding: 10, cornerRadius: 6 },
+          datalabels: { display: false }
+        },
+        scales: {
+          x: { ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' }, grid: { color: 'rgba(0,0,0,.04)' } },
+          y: { ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' }, title: { display: !!yLeftLabel, text: yLeftLabel || '', font: { size: 9 }, color: '#94a3b8' }, grid: { color: 'rgba(0,0,0,.04)' } },
+          y1: { position: 'right', ticks: { font: { size: 10, family: 'Inter' }, color: 'rgb(220,38,38)' }, title: { display: !!yRightLabel, text: yRightLabel || '', font: { size: 9 }, color: 'rgb(220,38,38)' }, grid: { drawOnChartArea: false } }
+        }
+      }
+    });
+  });
 }
 
 /* ══════════════════════════════════════════
-   PAGE: EFICIÊNCIA DE ECLOSÃO
+   HELPER: tabela summary (2026/2025/Meta)
+══════════════════════════════════════════ */
+function buildSummaryTable(wrapId, ano1, ano0, curData, prevData, metaData, acmCur, acmPrev, acmMeta) {
+  const wrap = document.getElementById(wrapId);
+  if (!wrap) return;
+  const fmtCell = v => (v == null || isNaN(v) || v === 0)
+    ? `<td class="s-null">-</td>` : `<td>${fmt(v)}%</td>`;
+  const fmtAcm = v => (v == null || isNaN(v) || v === 0)
+    ? `<td class="s-acm s-null">-</td>` : `<td class="s-acm">${fmt(v)}%</td>`;
+  wrap.innerHTML = `
+    <table class="summary-table">
+      <thead><tr><th>Ano/Mês</th><th>Acm.</th>${LABEL_MESES.map(h => `<th>${h}</th>`).join('')}</tr></thead>
+      <tbody>
+        <tr class="summary-row-cur"><td>${ano1}</td>${fmtAcm(acmCur)}${curData.map(fmtCell).join('')}</tr>
+        <tr class="summary-row-prev"><td>${ano0}</td>${fmtAcm(acmPrev)}${prevData.map(fmtCell).join('')}</tr>
+        <tr class="summary-row-meta"><td>Meta</td>${fmtAcm(acmMeta)}${metaData.map(fmtCell).join('')}</tr>
+      </tbody>
+    </table>`;
+}
+
+/* ══════════════════════════════════════════
+   PAGE: EFICIÊNCIA DE ECLOSÃO + ECLOSÃO REAL
 ══════════════════════════════════════════ */
 function renderEficiencia() {
-  const d = FILTERED;
-  const total = {ecl:sum(d,'Eclosão'), eclPdr:sum(d,'Eclosão Pdr'), eficPdr:sum(d,'Efic. Eclo. Pdr'), ovos:sum(d,'Ovos Incub.')};
-  const eficGlobal   = calcEfic(d);
-  const pdrEficGlob  = calcPdrEfic(d);
-  const eclRealGlob  = calcEclReal(d);
-  const pdrEclGlob   = calcPdrEcl(d);
+  // Histórico: respeita todos os filtros exceto "mes"
+  const historico = getHistoricoData();
+  const dados2026 = historico.filter(r => r['_ano'] === '2026');
+  const dados2025 = historico.filter(r => r['_ano'] === '2025');
 
-  const historicoData = RAW_DATA.filter(r => {
-  const incub = document.getElementById('filter-incubatorio').value;
-  const unid  = document.getElementById('filter-unidade').value;
-  const raca  = document.getElementById('filter-raca').value;
-  const tpovo = document.getElementById('filter-tipoovo').value;
-  const faixa = document.getElementById('filter-faixa').value;
-  // NÃO filtra mês
-  if (incub && r['Incubatório'] !== incub) return false;
-  if (unid && r['Unidade Granja'] !== unid) return false;
-  if (raca && r['Raça Ave'] !== raca) return false;
-  if (tpovo && r['Tp. Ovo'] !== tpovo) return false;
-  if (faixa && r['Faixa Idade'] !== faixa) return false;
-  return true;
-});
+  // Painéis acumulados
+  renderAcumSimple('panel-cur-eficiencia', 'EFICIÊNCIA 2026',
+    calcEfic(dados2026), calcPdrEfic(dados2026), '%',
+    calcEfic(dados2026) >= calcPdrEfic(dados2026) ? '#42684D' : '#DC2626');
+  renderAcumSimple('panel-ant-eficiencia', 'EFICIÊNCIA 2025',
+    calcEfic(dados2025), calcPdrEfic(dados2025), '%',
+    calcEfic(dados2025) >= calcPdrEfic(dados2025) ? '#42684D' : '#DC2626');
 
-const dados2026 = historicoData.filter(r => r['_ano'] === '2026');
-const dados2025 = historicoData.filter(r => r['_ano'] === '2025');
+  renderAcumSimple('panel-cur-eclreal', 'ECLOSÃO 2026',
+    calcEclReal(dados2026), calcPdrEcl(dados2026), '%',
+    calcEclReal(dados2026) >= calcPdrEcl(dados2026) ? '#42684D' : '#DC2626');
+  renderAcumSimple('panel-ant-eclreal', 'ECLOSÃO 2025',
+    calcEclReal(dados2025), calcPdrEcl(dados2025), '%',
+    calcEclReal(dados2025) >= calcPdrEcl(dados2025) ? '#42684D' : '#DC2626');
 
-const efic2026 = calcEfic(dados2026);
-const pdrEfic2026 = calcPdrEfic(dados2026);
+  // Dados mensais por ano (12 meses fixos)
+  const byMes = groupBy(historico, '_mes');
 
-const efic2025 = calcEfic(dados2025);
-const pdrEfic2025 = calcPdrEfic(dados2025);
+  const eficData1 = [], pdrData1 = [], eficData0 = [];
+  const eclData1 = [], pdrEcl1 = [], eclData0 = [];
 
-const eclo2026 = calcEclReal(dados2026);
-const pdrEclo2026 = calcPdrEcl(dados2026);
-
-const eclo2025 = calcEclReal(dados2025);
-const pdrEclo2025 = calcPdrEcl(dados2025);
-
-
-  renderAcumSimple('panel-cur-eficiencia','EFICIÊNCIA 2026',efic2026,pdrEfic2026,'%',efic2026>=pdrEfic2026 ?'#42684D':'#DC2626',true);
-  renderAcumSimple('panel-prev-eficiencia','ECL. REAL',eclRealGlob,pdrEclGlob,'%',eclRealGlob>=pdrEclGlob?'#078CAD':'#DC2626',false);
-  renderAcumSimple('panel-ant-eficiencia','EFICIÊNCIA 2025', efic2025,pdrEfic2025,'%',efic2025 >=pdrEfic2025 ?'#42684D':'#DC2626',false);
-
-  renderAcumSimple('panel-cur-eclreal','ECLOSÃO 2026',eclo2026,pdrEclo2026,'%',eclo2026>=pdrEclo2026?'#42684D':'#DC2626',true);
-  renderAcumSimple('panel-ant-eclreal','ECLOSÃO 2025',eclo2025,pdrEclo2025,'%',eclo2025>=pdrEclo2025?'#42684D':'#DC2626',false);
-
-  renderAcumSimple('panel-prev-eclreal','EFICIÊNCIA',eficGlobal,pdrEficGlob,'%',eficGlobal>=pdrEficGlob?'#078CAD':'#DC2626',false);
-
-  // Agrupado por mês
- /* const byMes = groupBy(d,'_mes');*/
- const byMes = groupBy(historicoData,'_mes');
-  
-  // 1. Definição FIXA dos meses do ano para o Eixo X
-  const labelMeses = ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'];
-  const sufixosMes = ['01', '02', '03', '04', '05', '06', '07', '08', '09', '10', '11', '12'];
-
-  // Anos fixos conforme solicitado
-  const ano1 = '2026';
-  const ano0 = '2025';
-
-  // 2. Mapeamento dos dados varrendo os 12 meses do ano de forma fixa
-  const eficData1 = []; // Real 2026
-  const pdrData1  = []; // Meta / Padrão (Usando como base o padrão de 2026)
-  const eficData0 = []; // Real 2025
-
-  const eclData1  = [];
-  const pdrEcl1   = [];
-  const eclData0  = [];
-
-  sufixosMes.forEach(mes => {
-    // Monta a chave no formato esperado pelo seu groupBy (ex: "2026-01" ou "2026/01")
-    // Ajuste o separador '-' ou '/' se o seu padrão de '_mes' for diferente
-    const chaveAno1 = `${ano1}-${mes}`; 
-    const chaveAno0 = `${ano0}-${mes}`;
-
-    const dadosAno1 = byMes[chaveAno1] || [];
-    const dadosAno0 = byMes[chaveAno0] || [];
-
-    // Se houver dados para o mês, calcula. Se não, retorna null (linha não renderiza/quebra no gráfico)
-    eficData1.push(dadosAno1.length > 0 ? +(calcEfic(dadosAno1)).toFixed(2) : null);
-    pdrData1.push(dadosAno1.length > 0 ? +(calcPdrEfic(dadosAno1)).toFixed(2) : null);
-    eficData0.push(dadosAno0.length > 0 ? +(calcEfic(dadosAno0)).toFixed(2) : null);
-
-    eclData1.push(dadosAno1.length > 0 ? +(calcEclReal(dadosAno1)).toFixed(2) : null);
-    pdrEcl1.push(dadosAno1.length > 0 ? +(calcPdrEcl(dadosAno1)).toFixed(2) : null);
-    eclData0.push(dadosAno0.length > 0 ? +(calcEclReal(dadosAno0)).toFixed(2) : null);
+  SUFIXOS_MES.forEach(mes => {
+    const d1 = byMes[`2026-${mes}`] || [];
+    const d0 = byMes[`2025-${mes}`] || [];
+    eficData1.push(d1.length ? +calcEfic(d1).toFixed(2) : null);
+    pdrData1.push(d1.length ? +calcPdrEfic(d1).toFixed(2) : null);
+    eficData0.push(d0.length ? +calcEfic(d0).toFixed(2) : null);
+    eclData1.push(d1.length ? +calcEclReal(d1).toFixed(2) : null);
+    pdrEcl1.push(d1.length ? +calcPdrEcl(d1).toFixed(2) : null);
+    eclData0.push(d0.length ? +calcEclReal(d0).toFixed(2) : null);
   });
 
-  // 3. Chamada do gráfico enviando os labels fixos e as séries corretas
-  // Certifique-se de que a função 'buildLineChart' aceita esses parâmetros nessa ordem.
-  buildLineChart('chart-eficiencia', 'eficiencia', labelMeses, eficData1, pdrData1, eficData0, '%', 'Real ' + ano0);
-  buildLineChart('chart-eclreal', 'eclreal', labelMeses, eclData1, pdrEcl1, eclData0, '%', 'Real ' + ano0);
+  buildLineChart('chart-eficiencia', 'eficiencia', LABEL_MESES, eficData1, pdrData1, eficData0, '%', 'Real 2025');
+  buildLineChart('chart-eclreal',    'eclreal',    LABEL_MESES, eclData1,  pdrEcl1,  eclData0,  '%', 'Real 2025');
 
-  // Tabela (Mantida a lógica original ordenada por meses com dados existentes)
-  const meses = sortedKeys(byMes);
-  const thead = document.querySelector('#table-eficiencia thead');
-  const tbody = document.querySelector('#table-eficiencia tbody');
-  thead.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ Efic</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Δ Ecl</th><th>Impacto Pintos</th></tr>';
-  tbody.innerHTML = meses.map(m => {
-    const rows = byMes[m] || [];
+  // Tabela summary
+  buildSummaryTable('summary-eficiencia', '2026', '2025',
+    eficData1, eficData0, pdrData1,
+    calcEfic(dados2026), calcEfic(dados2025), calcPdrEfic(dados2026));
+
+  buildSummaryTable('summary-eclosaoreal', '2026', '2025',
+    eclData1, eclData0, pdrEcl1,
+    calcEclReal(dados2026), calcEclReal(dados2025), calcPdrEcl(dados2026));
+
+  // Tabelas de detalhe por mês (usando FILTERED para respeitar filtro de mês)
+  const byMesFiltrado = groupBy(FILTERED, '_mes');
+  const meses = sortedKeys(byMesFiltrado);
+
+  // Tabela eficiência
+  const theadEfic = document.querySelector('#table-eficiencia thead');
+  const tbodyEfic = document.querySelector('#table-eficiencia tbody');
+  theadEfic.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ Efic</th></tr>';
+  tbodyEfic.innerHTML = meses.map(m => {
+    const rows = byMesFiltrado[m];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
-    const ecl = calcEclReal(rows), pecl = calcPdrEcl(rows);
-    const imp = calcImpacto(rows);
-    return `<tr><td>${m}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmtN(sum(rows,'Eclosão'))}</td><td>${fmtN(sum(rows,'Eclosão Pdr'))}</td>
-      <td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic-pefic)}</td>
-      <td>${fmt(ecl)}%</td><td>${fmt(pecl)}%</td><td>${semBadgePct(ecl-pecl)}</td>
-      <td><span class="badge ${imp<=0?'badge-up':'badge-down'}">${imp<=0?'▲':'▼'} ${fmtN(Math.abs(imp))}</span></td></tr>`;
+    return `<tr><td>${m}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic - pefic)}</td></tr>`;
+  }).join('');
+
+  // Tabela eclosão real
+  const theadEcl = document.querySelector('#table-eclosaoreal thead');
+  const tbodyEcl = document.querySelector('#table-eclosaoreal tbody');
+  theadEcl.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão Real Qtd</th><th>Eclosão Pdr Qtd</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Δ Ecl</th><th>Impacto Pintos</th></tr>';
+  tbodyEcl.innerHTML = meses.map(m => {
+    const rows = byMesFiltrado[m];
+    const ecl = calcEclReal(rows), pecl = calcPdrEcl(rows), imp = calcImpacto(rows);
+    return `<tr>
+      <td>${m}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td>
+      <td>${fmtN(sum(rows,'Eclosão'))}</td><td>${fmtN(sum(rows,'Eclosão Pdr'))}</td>
+      <td>${fmt(ecl)}%</td><td>${fmt(pecl)}%</td><td>${semBadgePct(ecl - pecl)}</td>
+      <td><span class="badge ${imp <= 0 ? 'badge-up' : 'badge-down'}">${imp <= 0 ? '▲' : '▼'} ${fmtN(Math.abs(imp))}</span></td>
+    </tr>`;
   }).join('');
 }
 
@@ -1009,25 +1209,24 @@ const pdrEclo2025 = calcPdrEcl(dados2025);
    PAGE: REGIÃO
 ══════════════════════════════════════════ */
 function renderRegiao() {
-  const d=FILTERED; const totalOvos=sum(d,'Ovos Incub.');
-  const byReg=groupBy(d,'Unidade Granja');
-  const regs=sortedKeys(byReg);
-  const eficVals=regs.map(r=>+calcEfic(byReg[r]).toFixed(2));
-  const pdrVals =regs.map(r=>+calcPdrEfic(byReg[r]).toFixed(2));
-  const volPcts =regs.map(r=>+calcVolPct(byReg[r],totalOvos).toFixed(2));
+  const d = FILTERED;
+  const totalOvos = sum(d, 'Ovos Incub.');
+  const byReg = groupBy(d, 'Unidade Granja');
+  const regs = sortedKeys(byReg);
 
-  buildBarChart('chart-regiao-efic','regiao-efic',regs,[
-    {label:'Eficiência Real (%)',   data:eficVals, backgroundColor:'rgba(1,67,51,.8)',    borderColor:'rgba(1,67,51,1)',    borderWidth:1.5},
-    {label:'Padrão Eficiência (%)',  data:pdrVals,  backgroundColor:'rgba(251,190,19,.7)', borderColor:'rgba(251,190,19,1)', borderWidth:1.5}
-  ],'%');
-  buildPizzaChart('chart-regiao-pizza','regiao-pizza',regs,volPcts);
+  buildBarChart('chart-regiao-efic', 'regiao-efic', regs, [
+    { label: 'Eficiência Real (%)',    data: regs.map(r => +calcEfic(byReg[r]).toFixed(2)),    backgroundColor: 'rgba(1,67,51,.8)',    borderColor: 'rgba(1,67,51,1)',    borderWidth: 1.5 },
+    { label: 'Padrão Eficiência (%)', data: regs.map(r => +calcPdrEfic(byReg[r]).toFixed(2)), backgroundColor: 'rgba(251,190,19,.7)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5 }
+  ], '%');
+  buildPizzaChart('chart-regiao-pizza', 'regiao-pizza', regs, regs.map(r => +calcVolPct(byReg[r], totalOvos).toFixed(2)));
 
-  const thead=document.querySelector('#table-regiao thead');
-  const tbody=document.querySelector('#table-regiao tbody');
-  thead.innerHTML='<tr><th>Região</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
-  tbody.innerHTML=regs.map(r=>{
-    const rows=byReg[r]; const efic=calcEfic(rows), pefic=calcPdrEfic(rows);
-    const ecl=calcEclReal(rows), pecl=calcPdrEcl(rows); const imp=calcImpacto(rows);
+  const thead = document.querySelector('#table-regiao thead');
+  const tbody = document.querySelector('#table-regiao tbody');
+  thead.innerHTML = '<tr><th>Região</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
+  tbody.innerHTML = regs.map(r => {
+    const rows = byReg[r];
+    const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
+    const ecl = calcEclReal(rows), pecl = calcPdrEcl(rows), imp = calcImpacto(rows);
     return `<tr><td>${r}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmt(calcVolPct(rows,totalOvos))}%</td>
       <td>${fmtN(sum(rows,'Eclosão'))}</td><td>${fmtN(sum(rows,'Eclosão Pdr'))}</td>
       <td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic-pefic)}</td>
@@ -1040,31 +1239,30 @@ function renderRegiao() {
    PAGE: LINHAGEM
 ══════════════════════════════════════════ */
 function renderLinhagem() {
-  const d=FILTERED; const totalOvos=sum(d,'Ovos Incub.');
-  const byLin=groupBy(d,'Linhagem');
-  const lins=sortedKeys(byLin);
-  const eficVals=lins.map(l=>+calcEfic(byLin[l]).toFixed(2));
-  const pdrVals =lins.map(l=>+calcPdrEfic(byLin[l]).toFixed(2));
-  const volPcts =lins.map(l=>+calcVolPct(byLin[l],totalOvos).toFixed(2));
-  const impVals =lins.map(l=>calcImpacto(byLin[l]));
+  const d = FILTERED;
+  const totalOvos = sum(d, 'Ovos Incub.');
+  const byLin = groupBy(d, 'Linhagem');
+  const lins = sortedKeys(byLin);
+  const impVals = lins.map(l => calcImpacto(byLin[l]));
 
-  buildBarChart('chart-lin-efic','lin-efic',lins,[
-    {label:'Eficiência Real (%)',    data:eficVals, backgroundColor:'rgba(1,67,51,.8)',    borderColor:'rgba(1,67,51,1)',    borderWidth:1.5},
-    {label:'Padrão Eficiência (%)', data:pdrVals,  backgroundColor:'rgba(251,190,19,.7)', borderColor:'rgba(251,190,19,1)', borderWidth:1.5}
-  ],'%');
-  buildPizzaChart('chart-lin-pizza','lin-pizza',lins,volPcts);
-  buildBarChart('chart-lin-impacto','lin-impacto',lins,[
-    {label:'Impacto de Pintos', data:impVals,
-     backgroundColor:impVals.map(v=>v>0?'rgba(220,38,38,.75)':'rgba(0,200,80,.75)'),
-     borderColor:impVals.map(v=>v>0?'rgb(220,38,38)':'rgb(0,200,80)'), borderWidth:1.5}
-  ],'pintos');
+  buildBarChart('chart-lin-efic', 'lin-efic', lins, [
+    { label: 'Eficiência Real (%)',    data: lins.map(l => +calcEfic(byLin[l]).toFixed(2)),    backgroundColor: 'rgba(1,67,51,.8)',    borderColor: 'rgba(1,67,51,1)',    borderWidth: 1.5 },
+    { label: 'Padrão Eficiência (%)', data: lins.map(l => +calcPdrEfic(byLin[l]).toFixed(2)), backgroundColor: 'rgba(251,190,19,.7)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5 }
+  ], '%');
+  buildPizzaChart('chart-lin-pizza', 'lin-pizza', lins, lins.map(l => +calcVolPct(byLin[l], totalOvos).toFixed(2)));
+  buildBarChart('chart-lin-impacto', 'lin-impacto', lins, [{
+    label: 'Impacto de Pintos', data: impVals,
+    backgroundColor: impVals.map(v => v > 0 ? 'rgba(220,38,38,.75)' : 'rgba(0,200,80,.75)'),
+    borderColor: impVals.map(v => v > 0 ? 'rgb(220,38,38)' : 'rgb(0,200,80)'), borderWidth: 1.5
+  }], 'pintos');
 
-  const thead=document.querySelector('#table-linhagem thead');
-  const tbody=document.querySelector('#table-linhagem tbody');
-  thead.innerHTML='<tr><th>Linhagem</th><th>Raça</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Impacto Pintos</th></tr>';
-  tbody.innerHTML=lins.map(l=>{
-    const rows=byLin[l]; const efic=calcEfic(rows), pefic=calcPdrEfic(rows);
-    const imp=calcImpacto(rows); const raca=[...new Set(rows.map(r=>r['Raça Ave']))].join(', ');
+  const thead = document.querySelector('#table-linhagem thead');
+  const tbody = document.querySelector('#table-linhagem tbody');
+  thead.innerHTML = '<tr><th>Linhagem</th><th>Raça</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Impacto Pintos</th></tr>';
+  tbody.innerHTML = lins.map(l => {
+    const rows = byLin[l];
+    const efic = calcEfic(rows), pefic = calcPdrEfic(rows), imp = calcImpacto(rows);
+    const raca = [...new Set(rows.map(r => r['Raça Ave']))].join(', ');
     return `<tr><td>${l}</td><td>${raca}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmt(calcVolPct(rows,totalOvos))}%</td>
       <td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic-pefic)}</td>
       <td><span class="badge ${imp<=0?'badge-up':'badge-down'}">${imp<=0?'▲':'▼'} ${fmtN(Math.abs(imp))}</span></td></tr>`;
@@ -1075,32 +1273,34 @@ function renderLinhagem() {
    PAGE: FAIXA ETÁRIA
 ══════════════════════════════════════════ */
 function renderFaixa() {
-  const d=FILTERED; const totalOvos=sum(d,'Ovos Incub.');
+  const d = FILTERED;
+  const totalOvos = sum(d, 'Ovos Incub.');
   const ORDER_FAIXA = ['Franga','M1','M2','Velha'];
-  const byF=groupBy(d,'Faixa Idade');
-  const faixas=Object.keys(byF).sort((a,b)=>{ const ia=ORDER_FAIXA.indexOf(a); const ib=ORDER_FAIXA.indexOf(b); return (ia<0?99:ia)-(ib<0?99:ib); });
-  const eficVals=faixas.map(f=>+calcEfic(byF[f]).toFixed(2));
-  const pdrVals =faixas.map(f=>+calcPdrEfic(byF[f]).toFixed(2));
-  const volPcts =faixas.map(f=>+calcVolPct(byF[f],totalOvos).toFixed(2));
-  const impVals =faixas.map(f=>calcImpacto(byF[f]));
+  const byF = groupBy(d, 'Faixa Idade');
+  const faixas = Object.keys(byF).sort((a, b) => {
+    const ia = ORDER_FAIXA.indexOf(a), ib = ORDER_FAIXA.indexOf(b);
+    return (ia < 0 ? 99 : ia) - (ib < 0 ? 99 : ib);
+  });
+  const impVals = faixas.map(f => calcImpacto(byF[f]));
 
-  buildBarChart('chart-faixa-efic','faixa-efic',faixas,[
-    {label:'Eficiência Real (%)',    data:eficVals, backgroundColor:'rgba(107,70,193,.8)',  borderColor:'rgba(107,70,193,1)', borderWidth:1.5},
-    {label:'Padrão Eficiência (%)', data:pdrVals,  backgroundColor:'rgba(251,190,19,.7)', borderColor:'rgba(251,190,19,1)', borderWidth:1.5}
-  ],'%');
-  buildPizzaChart('chart-faixa-pizza','faixa-pizza',faixas,volPcts);
-  buildBarChart('chart-faixa-impacto','faixa-impacto',faixas,[
-    {label:'Impacto de Pintos', data:impVals,
-     backgroundColor:impVals.map(v=>v>0?'rgba(220,38,38,.75)':'rgba(0,200,80,.75)'),
-     borderColor:impVals.map(v=>v>0?'rgb(220,38,38)':'rgb(0,200,80)'), borderWidth:1.5}
-  ],'pintos');
+  buildBarChart('chart-faixa-efic', 'faixa-efic', faixas, [
+    { label: 'Eficiência Real (%)',    data: faixas.map(f => +calcEfic(byF[f]).toFixed(2)),    backgroundColor: 'rgba(107,70,193,.8)',  borderColor: 'rgba(107,70,193,1)', borderWidth: 1.5 },
+    { label: 'Padrão Eficiência (%)', data: faixas.map(f => +calcPdrEfic(byF[f]).toFixed(2)), backgroundColor: 'rgba(251,190,19,.7)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5 }
+  ], '%');
+  buildPizzaChart('chart-faixa-pizza', 'faixa-pizza', faixas, faixas.map(f => +calcVolPct(byF[f], totalOvos).toFixed(2)));
+  buildBarChart('chart-faixa-impacto', 'faixa-impacto', faixas, [{
+    label: 'Impacto de Pintos', data: impVals,
+    backgroundColor: impVals.map(v => v > 0 ? 'rgba(220,38,38,.75)' : 'rgba(0,200,80,.75)'),
+    borderColor: impVals.map(v => v > 0 ? 'rgb(220,38,38)' : 'rgb(0,200,80)'), borderWidth: 1.5
+  }], 'pintos');
 
-  const thead=document.querySelector('#table-faixa thead');
-  const tbody=document.querySelector('#table-faixa tbody');
-  thead.innerHTML='<tr><th>Faixa Etária</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
-  tbody.innerHTML=faixas.map(f=>{
-    const rows=byF[f]; const efic=calcEfic(rows), pefic=calcPdrEfic(rows);
-    const ecl=calcEclReal(rows), pecl=calcPdrEcl(rows); const imp=calcImpacto(rows);
+  const thead = document.querySelector('#table-faixa thead');
+  const tbody = document.querySelector('#table-faixa tbody');
+  thead.innerHTML = '<tr><th>Faixa Etária</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
+  tbody.innerHTML = faixas.map(f => {
+    const rows = byF[f];
+    const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
+    const ecl = calcEclReal(rows), pecl = calcPdrEcl(rows), imp = calcImpacto(rows);
     return `<tr><td>${f}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmt(calcVolPct(rows,totalOvos))}%</td>
       <td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic-pefic)}</td>
       <td>${fmt(ecl)}%</td><td>${fmt(pecl)}%</td>
@@ -1112,31 +1312,30 @@ function renderFaixa() {
    PAGE: TIPO DE OVO
 ══════════════════════════════════════════ */
 function renderTipoOvo() {
-  const d=FILTERED; const totalOvos=sum(d,'Ovos Incub.');
-  const byTp=groupBy(d,'Tp. Ovo');
-  const tipos=sortedKeys(byTp);
-  const eficVals=tipos.map(t=>+calcEfic(byTp[t]).toFixed(2));
-  const pdrVals =tipos.map(t=>+calcPdrEfic(byTp[t]).toFixed(2));
-  const volPcts =tipos.map(t=>+calcVolPct(byTp[t],totalOvos).toFixed(2));
-  const impVals =tipos.map(t=>calcImpacto(byTp[t]));
+  const d = FILTERED;
+  const totalOvos = sum(d, 'Ovos Incub.');
+  const byTp = groupBy(d, 'Tp. Ovo');
+  const tipos = sortedKeys(byTp);
+  const impVals = tipos.map(t => calcImpacto(byTp[t]));
 
-  buildBarChart('chart-tp-efic','tp-efic',tipos,[
-    {label:'Eficiência Real (%)',    data:eficVals, backgroundColor:'rgba(7,140,173,.8)',   borderColor:'rgba(7,140,173,1)',  borderWidth:1.5},
-    {label:'Padrão Eficiência (%)', data:pdrVals,  backgroundColor:'rgba(251,190,19,.7)', borderColor:'rgba(251,190,19,1)', borderWidth:1.5}
-  ],'%');
-  buildPizzaChart('chart-tp-pizza','tp-pizza',tipos,volPcts);
-  buildBarChart('chart-tp-impacto','tp-impacto',tipos,[
-    {label:'Impacto de Pintos', data:impVals,
-     backgroundColor:impVals.map(v=>v>0?'rgba(220,38,38,.75)':'rgba(0,200,80,.75)'),
-     borderColor:impVals.map(v=>v>0?'rgb(220,38,38)':'rgb(0,200,80)'), borderWidth:1.5}
-  ],'pintos');
+  buildBarChart('chart-tp-efic', 'tp-efic', tipos, [
+    { label: 'Eficiência Real (%)',    data: tipos.map(t => +calcEfic(byTp[t]).toFixed(2)),    backgroundColor: 'rgba(7,140,173,.8)',   borderColor: 'rgba(7,140,173,1)',  borderWidth: 1.5 },
+    { label: 'Padrão Eficiência (%)', data: tipos.map(t => +calcPdrEfic(byTp[t]).toFixed(2)), backgroundColor: 'rgba(251,190,19,.7)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5 }
+  ], '%');
+  buildPizzaChart('chart-tp-pizza', 'tp-pizza', tipos, tipos.map(t => +calcVolPct(byTp[t], totalOvos).toFixed(2)));
+  buildBarChart('chart-tp-impacto', 'tp-impacto', tipos, [{
+    label: 'Impacto de Pintos', data: impVals,
+    backgroundColor: impVals.map(v => v > 0 ? 'rgba(220,38,38,.75)' : 'rgba(0,200,80,.75)'),
+    borderColor: impVals.map(v => v > 0 ? 'rgb(220,38,38)' : 'rgb(0,200,80)'), borderWidth: 1.5
+  }], 'pintos');
 
-  const thead=document.querySelector('#table-tipoovo thead');
-  const tbody=document.querySelector('#table-tipoovo tbody');
-  thead.innerHTML='<tr><th>Tipo de Ovo</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
-  tbody.innerHTML=tipos.map(t=>{
-    const rows=byTp[t]; const efic=calcEfic(rows), pefic=calcPdrEfic(rows);
-    const ecl=calcEclReal(rows), pecl=calcPdrEcl(rows); const imp=calcImpacto(rows);
+  const thead = document.querySelector('#table-tipoovo thead');
+  const tbody = document.querySelector('#table-tipoovo tbody');
+  thead.innerHTML = '<tr><th>Tipo de Ovo</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
+  tbody.innerHTML = tipos.map(t => {
+    const rows = byTp[t];
+    const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
+    const ecl = calcEclReal(rows), pecl = calcPdrEcl(rows), imp = calcImpacto(rows);
     return `<tr><td>${t}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmt(calcVolPct(rows,totalOvos))}%</td>
       <td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic-pefic)}</td>
       <td>${fmt(ecl)}%</td><td>${fmt(pecl)}%</td>
@@ -1148,31 +1347,40 @@ function renderTipoOvo() {
    PAGE: DIAS DE ESTOQUE
 ══════════════════════════════════════════ */
 function renderDiasEstoque() {
-  const d=FILTERED; const totalOvos=sum(d,'Ovos Incub.');
-  const byDia=groupBy(d,'Dias Estoq.');
-  const dias=Object.keys(byDia).map(Number).sort((a,b)=>a-b).map(String);
+  const d = FILTERED;
+  const totalOvos = sum(d, 'Ovos Incub.');
+  const byDia = groupBy(d, 'Dias Estoq.');
+  const dias = Object.keys(byDia).map(Number).sort((a, b) => a - b).map(String);
 
-  const volPcts=dias.map(dia=>+calcVolPct(byDia[dia],totalOvos).toFixed(2));
-  buildBarChart('chart-dias-barra','dias-barra',dias.map(d=>`${d} dias`),[
-    {label:'% de Ovos Incubados', data:volPcts, backgroundColor:'rgba(107,70,193,.8)', borderColor:'rgba(107,70,193,1)', borderWidth:1.5}
-  ],'%');
+  buildBarChart('chart-dias-barra', 'dias-barra', dias.map(d => `${d} dias`), [{
+    label: '% de Ovos Incubados',
+    data: dias.map(dia => +calcVolPct(byDia[dia], totalOvos).toFixed(2)),
+    backgroundColor: 'rgba(107,70,193,.8)', borderColor: 'rgba(107,70,193,1)', borderWidth: 1.5
+  }], '%');
 
-  // Histórico temporal — dias médio por mês
-  const byMes=groupBy(d,'_mes'); const meses=sortedKeys(byMes);
-  const anos=[...new Set(meses.map(m=>m.slice(0,4)))].sort();
-  const ano1=anos[anos.length-1]||'2026'; const ano0=anos[anos.length-2]||'2025';
-  const meses1=meses.filter(m=>m.startsWith(ano1));
-  const shortLabel=m=>m.slice(5)+'/'+m.slice(2,4);
-  const diasMed1=meses1.map(m=>+calcDiasMedio(byMes[m]||[]).toFixed(2));
-  const diasMed0=meses1.map(m=>{ const m0=m.replace(ano1,ano0); return byMes[m0]?+calcDiasMedio(byMes[m0]||[]).toFixed(2):null; });
-  buildLineChart('chart-dias-linha','dias-linha',meses1.map(shortLabel),diasMed1,null,diasMed0,'dias','Real '+ano0);
+  // Histórico temporal
+  const byMes = groupBy(d, '_mes');
+  const meses = sortedKeys(byMes);
+  const anos = [...new Set(meses.map(m => m.slice(0, 4)))].sort();
+  const ano1 = anos[anos.length - 1] || '2026';
+  const ano0 = anos[anos.length - 2] || '2025';
+  const meses1 = meses.filter(m => m.startsWith(ano1));
+  const shortLabel = m => m.slice(5) + '/' + m.slice(2, 4);
 
-  // Tabela
-  const thead=document.querySelector('#table-diasestoque thead');
-  const tbody=document.querySelector('#table-diasestoque tbody');
-  thead.innerHTML='<tr><th>Dias Estoque</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th></tr>';
-  tbody.innerHTML=dias.map(dia=>{
-    const rows=byDia[dia]; const efic=calcEfic(rows), pefic=calcPdrEfic(rows);
+  const diasMed1 = meses1.map(m => +calcDiasMedio(byMes[m] || []).toFixed(2));
+  const diasMed0 = meses1.map(m => {
+    const m0 = m.replace(ano1, ano0);
+    return byMes[m0] ? +calcDiasMedio(byMes[m0]).toFixed(2) : null;
+  });
+  // Passa null como dsPdr — buildLineChart agora trata isso corretamente
+  buildLineChart('chart-dias-linha', 'dias-linha', meses1.map(shortLabel), diasMed1, null, diasMed0, 'dias', 'Real ' + ano0);
+
+  const thead = document.querySelector('#table-diasestoque thead');
+  const tbody = document.querySelector('#table-diasestoque tbody');
+  thead.innerHTML = '<tr><th>Dias Estoque</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th></tr>';
+  tbody.innerHTML = dias.map(dia => {
+    const rows = byDia[dia];
+    const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
     return `<tr><td>${dia} dias</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmt(calcVolPct(rows,totalOvos))}%</td>
       <td>${fmtN(sum(rows,'Eclosão'))}</td><td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic-pefic)}</td></tr>`;
   }).join('');
@@ -1182,45 +1390,47 @@ function renderDiasEstoque() {
    PAGE: INCUBATÓRIOS
 ══════════════════════════════════════════ */
 function renderIncubatorios() {
-  const d=FILTERED;
-  const byInc=groupBy(d,'Incubatório');
-  const incs=sortedKeys(byInc);
-  const eclRealVals=incs.map(i=>+calcEclReal(byInc[i]).toFixed(2));
-  const pdrEclVals =incs.map(i=>+calcPdrEcl(byInc[i]).toFixed(2));
-  const eficVals   =incs.map(i=>+calcEfic(byInc[i]).toFixed(2));
+  const d = FILTERED;
+  const byInc = groupBy(d, 'Incubatório');
+  const incs = sortedKeys(byInc);
 
   destroyChart('incub-barras');
-  const ctx=document.getElementById('chart-incub-barras'); if(!ctx) return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    CHARTS['incub-barras']=new Chart(ctx,{
-      data:{labels:incs,datasets:[
-        {type:'bar',  label:'Eclosão Real (%)',    data:eclRealVals, backgroundColor:'rgba(1,67,51,.8)',    borderColor:'rgba(1,67,51,1)',    borderWidth:1.5, yAxisID:'y'},
-        {type:'bar',  label:'Eclosão Padrão (%)', data:pdrEclVals,  backgroundColor:'rgba(251,190,19,.75)', borderColor:'rgba(251,190,19,1)', borderWidth:1.5, yAxisID:'y'},
-        {type:'line', label:'Eficiência de Eclosão (%)', data:eficVals, borderColor:'rgb(220,38,38)', backgroundColor:'rgba(220,38,38,.08)', pointRadius:5, pointBackgroundColor:'rgb(220,38,38)', pointBorderColor:'#fff', pointBorderWidth:2, borderWidth:2.5, fill:false, tension:.3, yAxisID:'y1'}
-      ]},
-      options:{
-        responsive:true, maintainAspectRatio:false,
-        interaction:{mode:'index',intersect:false},
-        plugins:{
-          legend:{position:'bottom',labels:{boxWidth:10,font:{size:10,family:'Inter'},color:'#64748b',padding:12}},
-          tooltip:{backgroundColor:'rgba(15,25,35,.92)',titleColor:'#f0f4f8',bodyColor:'#a8b8c8',padding:10,cornerRadius:6,
-            callbacks:{label:c=>` ${c.dataset.label}: ${fmt(c.parsed.y)}%`}}
+  const ctx = document.getElementById('chart-incub-barras');
+  if (!ctx) return;
+  requestAnimationFrame(() => {
+    CHARTS['incub-barras'] = new Chart(ctx, {
+      data: {
+        labels: incs,
+        datasets: [
+          { type: 'bar',  label: 'Eclosão Real (%)',            data: incs.map(i => +calcEclReal(byInc[i]).toFixed(2)), backgroundColor: 'rgba(1,67,51,.8)',     borderColor: 'rgba(1,67,51,1)',    borderWidth: 1.5, yAxisID: 'y' },
+          { type: 'bar',  label: 'Eclosão Padrão (%)',          data: incs.map(i => +calcPdrEcl(byInc[i]).toFixed(2)),  backgroundColor: 'rgba(251,190,19,.75)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5, yAxisID: 'y' },
+          { type: 'line', label: 'Eficiência de Eclosão (%)',   data: incs.map(i => +calcEfic(byInc[i]).toFixed(2)),    borderColor: 'rgb(220,38,38)', backgroundColor: 'rgba(220,38,38,.08)', pointRadius: 5, pointBackgroundColor: 'rgb(220,38,38)', pointBorderColor: '#fff', pointBorderWidth: 2, borderWidth: 2.5, fill: false, tension: 0.3, yAxisID: 'y1' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        interaction: { mode: 'index', intersect: false },
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10, family: 'Inter' }, color: '#64748b', padding: 12 } },
+          tooltip: { backgroundColor: 'rgba(15,25,35,.92)', titleColor: '#f0f4f8', bodyColor: '#a8b8c8', padding: 10, cornerRadius: 6, callbacks: { label: c => ` ${c.dataset.label}: ${fmt(c.parsed.y)}%` } },
+          datalabels: { display: false }
         },
-        scales:{
-          x:{ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},grid:{color:'rgba(0,0,0,.04)'}},
-          y:{ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},title:{display:true,text:'Eclosão (%)',font:{size:9},color:'#94a3b8'},grid:{color:'rgba(0,0,0,.04)'}},
-          y1:{position:'right',ticks:{font:{size:10,family:'Inter'},color:'rgb(220,38,38)'},title:{display:true,text:'Eficiência (%)',font:{size:9},color:'rgb(220,38,38)'},grid:{drawOnChartArea:false}}
+        scales: {
+          x: { ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' }, grid: { color: 'rgba(0,0,0,.04)' } },
+          y: { ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' }, title: { display: true, text: 'Eclosão (%)', font: { size: 9 }, color: '#94a3b8' }, grid: { color: 'rgba(0,0,0,.04)' } },
+          y1: { position: 'right', ticks: { font: { size: 10, family: 'Inter' }, color: 'rgb(220,38,38)' }, title: { display: true, text: 'Eficiência (%)', font: { size: 9 }, color: 'rgb(220,38,38)' }, grid: { drawOnChartArea: false } }
         }
       }
     });
-  }));
+  });
 
-  const thead=document.querySelector('#table-incubatorios thead');
-  const tbody=document.querySelector('#table-incubatorios tbody');
-  thead.innerHTML='<tr><th>Incubatório</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eclosão Real (%)</th><th>Eclosão Padrão (%)</th><th>Δ Ecl</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ Efic</th><th>Impacto Pintos</th></tr>';
-  tbody.innerHTML=incs.map(i=>{
-    const rows=byInc[i]; const efic=calcEfic(rows), pefic=calcPdrEfic(rows);
-    const ecl=calcEclReal(rows), pecl=calcPdrEcl(rows); const imp=calcImpacto(rows);
+  const thead = document.querySelector('#table-incubatorios thead');
+  const tbody = document.querySelector('#table-incubatorios tbody');
+  thead.innerHTML = '<tr><th>Incubatório</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eclosão Real (%)</th><th>Eclosão Padrão (%)</th><th>Δ Ecl</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ Efic</th><th>Impacto Pintos</th></tr>';
+  tbody.innerHTML = incs.map(i => {
+    const rows = byInc[i];
+    const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
+    const ecl = calcEclReal(rows), pecl = calcPdrEcl(rows), imp = calcImpacto(rows);
     return `<tr><td>${i}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmtN(sum(rows,'Eclosão'))}</td><td>${fmtN(sum(rows,'Eclosão Pdr'))}</td>
       <td>${fmt(ecl)}%</td><td>${fmt(pecl)}%</td><td>${semBadgePct(ecl-pecl)}</td>
       <td>${fmt(efic)}%</td><td>${fmt(pefic)}%</td><td>${semBadgePct(efic-pefic)}</td>
@@ -1232,29 +1442,32 @@ function renderIncubatorios() {
    PAGE: IMPACTO FORMAÇÃO
 ══════════════════════════════════════════ */
 function renderImpacto() {
-  const d=FILTERED;
-  const byMes=groupBy(d,'_mes'); const meses=sortedKeys(byMes);
-  const impVals=meses.map(m=>calcImpacto(byMes[m]||[]));
-  buildBarChart('chart-impacto-mes','impacto-mes',meses,[
-    {label:'Impacto de Pintos (Pdr - Real)', data:impVals,
-     backgroundColor:impVals.map(v=>v>0?'rgba(220,38,38,.75)':'rgba(0,200,80,.75)'),
-     borderColor:impVals.map(v=>v>0?'rgb(220,38,38)':'rgb(0,200,80)'), borderWidth:1.5}
-  ],'pintos');
+  const d = FILTERED;
+  const byMes = groupBy(d, '_mes');
+  const meses = sortedKeys(byMes);
+  const impVals = meses.map(m => calcImpacto(byMes[m]));
 
-  const byReg=groupBy(d,'Unidade Granja'); const regs=sortedKeys(byReg);
-  const impReg=regs.map(r=>calcImpacto(byReg[r]));
-  buildBarChart('chart-impacto-regiao','impacto-regiao',regs,[
-    {label:'Impacto de Pintos', data:impReg,
-     backgroundColor:impReg.map(v=>v>0?'rgba(220,38,38,.75)':'rgba(0,200,80,.75)'),
-     borderColor:impReg.map(v=>v>0?'rgb(220,38,38)':'rgb(0,200,80)'), borderWidth:1.5}
-  ],'pintos');
+  buildBarChart('chart-impacto-mes', 'impacto-mes', meses, [{
+    label: 'Impacto de Pintos (Pdr - Real)', data: impVals,
+    backgroundColor: impVals.map(v => v > 0 ? 'rgba(220,38,38,.75)' : 'rgba(0,200,80,.75)'),
+    borderColor: impVals.map(v => v > 0 ? 'rgb(220,38,38)' : 'rgb(0,200,80)'), borderWidth: 1.5
+  }], 'pintos');
 
-  const thead=document.querySelector('#table-impacto thead');
-  const tbody=document.querySelector('#table-impacto tbody');
-  thead.innerHTML='<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Efic. Eclo. Pdr</th><th>Impacto Pintos</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th></tr>';
-  tbody.innerHTML=meses.map(m=>{
-    const rows=byMes[m]||[];
-    const imp=calcImpacto(rows);
+  const byReg = groupBy(d, 'Unidade Granja');
+  const regs = sortedKeys(byReg);
+  const impReg = regs.map(r => calcImpacto(byReg[r]));
+  buildBarChart('chart-impacto-regiao', 'impacto-regiao', regs, [{
+    label: 'Impacto de Pintos', data: impReg,
+    backgroundColor: impReg.map(v => v > 0 ? 'rgba(220,38,38,.75)' : 'rgba(0,200,80,.75)'),
+    borderColor: impReg.map(v => v > 0 ? 'rgb(220,38,38)' : 'rgb(0,200,80)'), borderWidth: 1.5
+  }], 'pintos');
+
+  const thead = document.querySelector('#table-impacto thead');
+  const tbody = document.querySelector('#table-impacto tbody');
+  thead.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Efic. Eclo. Pdr</th><th>Impacto Pintos</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th></tr>';
+  tbody.innerHTML = meses.map(m => {
+    const rows = byMes[m];
+    const imp = calcImpacto(rows);
     return `<tr><td>${m}</td><td>${fmtN(sum(rows,'Ovos Incub.'))}</td><td>${fmtN(sum(rows,'Eclosão'))}</td>
       <td>${fmtN(sum(rows,'Eclosão Pdr'))}</td><td>${fmtN(sum(rows,'Efic. Eclo. Pdr'))}</td>
       <td><span class="badge ${imp<=0?'badge-up':'badge-down'}">${imp<=0?'▲':'▼'} ${fmtN(Math.abs(imp))}</span></td>
@@ -1266,47 +1479,61 @@ function renderImpacto() {
    PAGE: OVOSCOPIA
 ══════════════════════════════════════════ */
 function renderOvoscopia() {
-  const d=FILTERED;
-  const byReg=groupBy(d,'Unidade Granja'); const regs=sortedKeys(byReg);
-  const contamVals=regs.map(r=>sum(byReg[r],'Contam.'));
-  const contamPct =regs.map(r=>+(pct(sum(byReg[r],'Contam.'),sum(byReg[r],'Ovos Incub.'))).toFixed(3));
+  const d = FILTERED;
+  const byReg = groupBy(d, 'Unidade Granja');
+  const regs = sortedKeys(byReg);
+  const contamVals = regs.map(r => sum(byReg[r], 'Contam.'));
+  const contamPct  = regs.map(r => +pct(sum(byReg[r], 'Contam.'), sum(byReg[r], 'Ovos Incub.')).toFixed(3));
 
-  buildBarChart('chart-ovo-regiao','ovo-regiao',regs,[
-    {label:'Contaminados (qtde)',  data:contamVals, backgroundColor:'rgba(220,38,38,.75)',    borderColor:'rgb(220,38,38)',    borderWidth:1.5, yAxisID:'y'},
-    {label:'% Contaminação',       data:contamPct,  backgroundColor:'rgba(245,158,11,.65)',   borderColor:'rgb(245,158,11)',   borderWidth:1.5, yAxisID:'y1'}
-  ],'');
-  // Hack: mixed scale
   destroyChart('ovo-regiao');
-  const ctx=document.getElementById('chart-ovo-regiao'); if(!ctx) return;
-  requestAnimationFrame(()=>requestAnimationFrame(()=>{
-    CHARTS['ovo-regiao']=new Chart(ctx,{
-      data:{labels:regs,datasets:[
-        {type:'bar',  label:'Contaminados (qtde)', data:contamVals, backgroundColor:'rgba(220,38,38,.75)', borderColor:'rgb(220,38,38)', borderWidth:1.5, yAxisID:'y'},
-        {type:'line', label:'% Contaminação',      data:contamPct,  borderColor:'rgb(245,158,11)', backgroundColor:'rgba(245,158,11,.1)', pointRadius:5, borderWidth:2.5, fill:false, tension:.3, yAxisID:'y1'}
-      ]},
-      options:{responsive:true,maintainAspectRatio:false,
-        plugins:{legend:{position:'bottom',labels:{boxWidth:10,font:{size:10,family:'Inter'},color:'#64748b',padding:12}},
-          tooltip:{backgroundColor:'rgba(15,25,35,.92)',titleColor:'#f0f4f8',bodyColor:'#a8b8c8',padding:10,cornerRadius:6}},
-        scales:{x:{ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},grid:{color:'rgba(0,0,0,.04)'}},
-          y:{ticks:{font:{size:10,family:'Inter'},color:'#94a3b8'},title:{display:true,text:'Qtde',font:{size:9},color:'#94a3b8'},grid:{color:'rgba(0,0,0,.04)'}},
-          y1:{position:'right',ticks:{font:{size:10,family:'Inter'},color:'rgb(245,158,11)'},title:{display:true,text:'% Contam.',font:{size:9},color:'rgb(245,158,11)'},grid:{drawOnChartArea:false}}}}
+  const ctx = document.getElementById('chart-ovo-regiao');
+  if (!ctx) return;
+  requestAnimationFrame(() => {
+    CHARTS['ovo-regiao'] = new Chart(ctx, {
+      data: {
+        labels: regs,
+        datasets: [
+          { type: 'bar',  label: 'Contaminados (qtde)', data: contamVals, backgroundColor: 'rgba(220,38,38,.75)', borderColor: 'rgb(220,38,38)', borderWidth: 1.5, yAxisID: 'y' },
+          { type: 'line', label: '% Contaminação',      data: contamPct,  borderColor: 'rgb(245,158,11)', backgroundColor: 'rgba(245,158,11,.1)', pointRadius: 5, borderWidth: 2.5, fill: false, tension: 0.3, yAxisID: 'y1' }
+        ]
+      },
+      options: {
+        responsive: true, maintainAspectRatio: false,
+        plugins: {
+          legend: { position: 'bottom', labels: { boxWidth: 10, font: { size: 10, family: 'Inter' }, color: '#64748b', padding: 12 } },
+          tooltip: { backgroundColor: 'rgba(15,25,35,.92)', titleColor: '#f0f4f8', bodyColor: '#a8b8c8', padding: 10, cornerRadius: 6 },
+          datalabels: { display: false }
+        },
+        scales: {
+          x: { ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' }, grid: { color: 'rgba(0,0,0,.04)' } },
+          y: { ticks: { font: { size: 10, family: 'Inter' }, color: '#94a3b8' }, title: { display: true, text: 'Qtde', font: { size: 9 }, color: '#94a3b8' }, grid: { color: 'rgba(0,0,0,.04)' } },
+          y1: { position: 'right', ticks: { font: { size: 10, family: 'Inter' }, color: 'rgb(245,158,11)' }, title: { display: true, text: '% Contam.', font: { size: 9 }, color: 'rgb(245,158,11)' }, grid: { drawOnChartArea: false } }
+        }
+      }
     });
-  }));
+  });
 
-  const byTp=groupBy(d,'Tp. Ovo'); const tipos=sortedKeys(byTp);
-  const contamTpPct=tipos.map(t=>+(pct(sum(byTp[t],'Contam.'),sum(byTp[t],'Ovos Incub.'))).toFixed(3));
-  buildPizzaChart('chart-ovo-tipo','ovo-tipo',tipos.map((t,i)=>`${t} (${fmt(contamTpPct[i])}%)`),contamTpPct.map(v=>Math.max(v,0.001)));
+  const byTp = groupBy(d, 'Tp. Ovo');
+  const tipos = sortedKeys(byTp);
+  const contamTpPct = tipos.map(t => +pct(sum(byTp[t], 'Contam.'), sum(byTp[t], 'Ovos Incub.')).toFixed(3));
+  buildPizzaChart('chart-ovo-tipo', 'ovo-tipo',
+    tipos.map((t, i) => `${t} (${fmt(contamTpPct[i])}%)`),
+    contamTpPct.map(v => Math.max(v, 0.001)));
 
-  const thead=document.querySelector('#table-ovoscopia thead');
-  const tbody=document.querySelector('#table-ovoscopia tbody');
-  thead.innerHTML='<tr><th>Região</th><th>Tipo Ovo</th><th>Ovos Incub.</th><th>Contaminados</th><th>% Contaminação</th><th>Vendáveis</th><th>Eliminados</th><th>% Eliminação</th></tr>';
-  // Agrupado por região + tipo
+  const thead = document.querySelector('#table-ovoscopia thead');
+  const tbody = document.querySelector('#table-ovoscopia tbody');
+  thead.innerHTML = '<tr><th>Região</th><th>Tipo Ovo</th><th>Ovos Incub.</th><th>Contaminados</th><th>% Contaminação</th><th>Vendáveis</th><th>Eliminados</th><th>% Eliminação</th></tr>';
   const rows2d = [];
-  regs.forEach(r=>{ tipos.forEach(t=>{ const rows=d.filter(x=>x['Unidade Granja']===r&&x['Tp. Ovo']===t); if(rows.length) rows2d.push({r,t,rows}); }); });
-  tbody.innerHTML=rows2d.map(({r,t,rows})=>{
-    const oi=sum(rows,'Ovos Incub.'), ct=sum(rows,'Contam.'), vd=sum(rows,'Vend.'), el=sum(rows,'Elim.');
+  regs.forEach(r => tipos.forEach(t => {
+    const rows = d.filter(x => x['Unidade Granja'] === r && x['Tp. Ovo'] === t);
+    if (rows.length) rows2d.push({ r, t, rows });
+  }));
+  tbody.innerHTML = rows2d.map(({ r, t, rows }) => {
+    const oi = sum(rows, 'Ovos Incub.'), ct = sum(rows, 'Contam.');
+    const vd = sum(rows, 'Vend.'), el = sum(rows, 'Elim.');
     return `<tr><td>${r}</td><td>${t}</td><td>${fmtN(oi)}</td><td>${fmtN(ct)}</td>
-      <td>${fmt(pct(ct,oi),3)}%</td><td>${fmtN(vd)}</td><td>${fmtN(el)}</td><td>${fmt(pct(el,sum(rows,'Eclosão')),3)}%</td></tr>`;
+      <td>${fmt(pct(ct,oi),3)}%</td><td>${fmtN(vd)}</td><td>${fmtN(el)}</td>
+      <td>${fmt(pct(el,sum(rows,'Eclosão')),3)}%</td></tr>`;
   }).join('');
 }
 
@@ -1330,13 +1557,14 @@ function renderAll() {
    RESET
 ══════════════════════════════════════════ */
 function resetDashboard() {
-  Object.keys(CHARTS).forEach(k=>{ try{CHARTS[k].destroy();}catch(e){} delete CHARTS[k]; });
-  RAW_DATA=[]; FILTERED=[]; pendingFile=null; currentFile='';
-  document.getElementById('file-input').value='';
-  fileNameEl.classList.remove('visible'); errorEl.classList.remove('visible');
-  loadBtn.disabled=true;
-  document.getElementById('dashboard').style.display='none';
-  document.getElementById('upload-screen').style.display='flex';
+  Object.keys(CHARTS).forEach(k => { try { CHARTS[k].destroy(); } catch (e) {} delete CHARTS[k]; });
+  RAW_DATA = []; FILTERED = []; pendingFile = null; currentFile = '';
+  document.getElementById('file-input').value = '';
+  fileNameEl.classList.remove('visible');
+  errorEl.classList.remove('visible');
+  loadBtn.disabled = true;
+  document.getElementById('dashboard').style.display = 'none';
+  document.getElementById('upload-screen').style.display = 'flex';
   setPage('eficiencia', document.querySelector('[data-page="eficiencia"]'));
 }
 </script>
