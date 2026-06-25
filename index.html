@@ -114,6 +114,7 @@ body{background:var(--bg-page);color:var(--text-1);font-family:'Inter',sans-seri
 .kpi-card{background:var(--bg-card);border:1px solid var(--border);border-radius:var(--radius);box-shadow:var(--shadow);padding:1rem 1.1rem;border-bottom:3px solid;}
 .kpi-label{font-size:.6rem;font-weight:700;color:var(--text-3);text-transform:uppercase;letter-spacing:.06em;margin-bottom:.35rem;}
 .kpi-val{font-size:1.45rem;font-weight:800;line-height:1;margin-bottom:.3rem;}
+.kpi-footer{display:flex;flex-direction: row-reverse;justify-content: flex-end;align-items:center;gap:.5rem;}
 .kpi-sub{font-size:.7rem;color:var(--text-2);}
 .kpi-badge{display:inline-flex;align-items:center;padding:.12rem .4rem;border-radius:4px;font-size:.62rem;font-weight:700;margin-top:.3rem;}
 .kpi-badge-up{background:rgba(0,200,80,.1);color:rgb(0,140,55);}
@@ -934,18 +935,30 @@ function renderKPIs() {
   const pdrEcl  = calcPdrEcl(d);
   const impacto = calcImpacto(d);
   const kpis = [
-    { label: 'Ovos Incubados',        val: fmtN(sum(d, 'Ovos Incub.')),               color: '#078CAD', sub: 'Período selecionado' },
-    { label: 'Eficiência de Eclosão', val: fmt(efic) + '%',                            color: efic >= pdrEfic ? '#42684D' : '#DC2626', sub: `Padrão: ${fmt(pdrEfic)}%`, badge: semBadgePct(efic - pdrEfic) },
+    { label: 'Ovos Incubados',        val: fmtN(sum(d, 'Ovos Incub.')),               color: '#078CAD', sub: ' ' },
+    { label: 'Pintos Nascidos',        val: fmtN(sum(d, 'Eclosão')),          color: '#078CAD', sub: ' ' },
+    { label: 'Eficiência de Eclosão', val: fmt(efic) + '%',                            color: efic >= pdrEfic ? '#42684D' : '#DC2626', sub: `Meta: ${fmt(pdrEfic)}%`, badge: semBadgePct(efic - pdrEfic) },
     { label: 'Eclosão Real',          val: fmt(eclReal) + '%',                         color: eclReal >= pdrEcl ? '#42684D' : '#DC2626', sub: `Padrão: ${fmt(pdrEcl)}%`, badge: semBadgePct(eclReal - pdrEcl) },
-    { label: 'Impacto de Pintos',     val: (impacto >= 0 ? '+' : '') + fmtN(impacto), color: impacto <= 0 ? '#42684D' : '#DC2626', sub: 'Pdr - Real' },
-    { label: 'Dias de Estoque Médio', val: fmt(calcDiasMedio(d)),                      color: '#6B46C1', sub: 'Dias médio ponderado' },
+    { label: 'Impacto de Pintos',     val: (impacto >= 0 ? '+' : '') + fmtN(impacto), color: impacto <= 0 ? '#42684D' : '#DC2626', sub: 'Pdr. - Real' },
+  //  { label: 'Dias de Estoque Médio', val: fmt(calcDiasMedio(d)),                      color: '#6B46C1', sub: 'Dias médio ponderado' },
   ];
-  document.getElementById('kpi-row').innerHTML = kpis.map(k => `
+  /*document.getElementById('kpi-row').innerHTML = kpis.map(k => `
     <div class="kpi-card" style="border-bottom-color:${k.color}">
       <div class="kpi-label">${k.label}</div>
       <div class="kpi-val" style="color:${k.color}">${k.val}</div>
       <div class="kpi-sub">${k.sub}</div>
       ${k.badge ? `<div>${k.badge}</div>` : ''}
+    </div>`).join('');*/
+    document.getElementById('kpi-row').innerHTML = kpis.map(k => `
+    <div class="kpi-card" style="border-bottom-color:${k.color}">
+      <div class="kpi-label">${k.label}</div>
+      <div class="kpi-val" style="color:${k.color}">${k.val}</div>
+      
+      <div class="kpi-footer">
+        <span class="kpi-sub">${k.sub}</span>
+        ${k.badge ? `${k.badge}` : ''}
+      </div>
+      
     </div>`).join('');
 }
 
@@ -993,10 +1006,10 @@ function buildLineChart(canvasId, key, labels, ds2026, dsPdr, ds2025, yLabel, la
     ];
     // Padrão só entra se houver dados (dsPdr pode ser null em dias-estoque)
     if (dsPdr && dsPdr.some(v => v !== null)) {
-      datasets.push({ label: 'Padrão', data: dsPdr, borderColor: C.pdr, borderDash: [6, 3], tension: 0.3, pointRadius: 3, pointBackgroundColor: C.pdr, fill: false, borderWidth: 2, order: 2 });
+      datasets.push({ label: 'Meta', data: dsPdr, borderColor: C.pdr, borderDash: [6, 3], tension: 0.3, pointRadius: 0, pointBackgroundColor: C.pdr, fill: false, borderWidth: 2, order: 2 });
     }
     if (ds2025 && ds2025.some(v => v !== null)) {
-      datasets.push({ label: label2025 || 'Real 2025', data: ds2025, borderColor: C.real2025, borderDash: [3, 3], tension: 0.4, pointRadius: 3, pointBackgroundColor: C.real2025, fill: false, borderWidth: 1.5, order: 3 });
+      datasets.push({ label: label2025 || 'Real 2025', data: ds2025, borderColor: C.real2025, borderDash: [3, 3], tension: 0.4, pointRadius: 0, pointBackgroundColor: C.real2025, fill: false, borderWidth: 1.5, order: 3 });
     }
     CHARTS[key] = new Chart(ctx, {
       type: 'line',
@@ -1182,7 +1195,7 @@ function renderEficiencia() {
   // Tabela eficiência
   const theadEfic = document.querySelector('#table-eficiencia thead');
   const tbodyEfic = document.querySelector('#table-eficiencia tbody');
-  theadEfic.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ Efic</th></tr>';
+  theadEfic.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eficiência (%)</th><th>Meta Efic (%)</th><th>Δ Efic</th></tr>';
   tbodyEfic.innerHTML = meses.map(m => {
     const rows = byMesFiltrado[m];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
@@ -1192,7 +1205,7 @@ function renderEficiencia() {
   // Tabela eclosão real
   const theadEcl = document.querySelector('#table-eclosaoreal thead');
   const tbodyEcl = document.querySelector('#table-eclosaoreal tbody');
-  theadEcl.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão Real Qtd</th><th>Eclosão Pdr Qtd</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Δ Ecl</th><th>Impacto Pintos</th></tr>';
+  theadEcl.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão Real Qtd</th><th>Eclosão Pdr Qtd</th><th>Eclosão Real (%)</th><th>Meta Ecl (%)</th><th>Δ Ecl</th><th>Impacto Pintos</th></tr>';
   tbodyEcl.innerHTML = meses.map(m => {
     const rows = byMesFiltrado[m];
     const ecl = calcEclReal(rows), pecl = calcPdrEcl(rows), imp = calcImpacto(rows);
@@ -1216,13 +1229,13 @@ function renderRegiao() {
 
   buildBarChart('chart-regiao-efic', 'regiao-efic', regs, [
     { label: 'Eficiência Real (%)',    data: regs.map(r => +calcEfic(byReg[r]).toFixed(2)),    backgroundColor: 'rgba(1,67,51,.8)',    borderColor: 'rgba(1,67,51,1)',    borderWidth: 1.5 },
-    { label: 'Padrão Eficiência (%)', data: regs.map(r => +calcPdrEfic(byReg[r]).toFixed(2)), backgroundColor: 'rgba(251,190,19,.7)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5 }
+    { label: 'Meta Eficiência (%)', data: regs.map(r => +calcPdrEfic(byReg[r]).toFixed(2)), backgroundColor: 'rgba(251,190,19,.7)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5 }
   ], '%');
   buildPizzaChart('chart-regiao-pizza', 'regiao-pizza', regs, regs.map(r => +calcVolPct(byReg[r], totalOvos).toFixed(2)));
 
   const thead = document.querySelector('#table-regiao thead');
   const tbody = document.querySelector('#table-regiao tbody');
-  thead.innerHTML = '<tr><th>Região</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
+  thead.innerHTML = '<tr><th>Região</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eficiência (%)</th><th>Meta Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Meta Ecl (%)</th><th>Impacto Pintos</th></tr>';
   tbody.innerHTML = regs.map(r => {
     const rows = byReg[r];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
@@ -1258,7 +1271,7 @@ function renderLinhagem() {
 
   const thead = document.querySelector('#table-linhagem thead');
   const tbody = document.querySelector('#table-linhagem tbody');
-  thead.innerHTML = '<tr><th>Linhagem</th><th>Raça</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Impacto Pintos</th></tr>';
+  thead.innerHTML = '<tr><th>Linhagem</th><th>Raça</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Meta Efic (%)</th><th>Δ</th><th>Impacto Pintos</th></tr>';
   tbody.innerHTML = lins.map(l => {
     const rows = byLin[l];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows), imp = calcImpacto(rows);
@@ -1296,7 +1309,7 @@ function renderFaixa() {
 
   const thead = document.querySelector('#table-faixa thead');
   const tbody = document.querySelector('#table-faixa tbody');
-  thead.innerHTML = '<tr><th>Faixa Etária</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
+  thead.innerHTML = '<tr><th>Faixa Etária</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Meta Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Meta Ecl (%)</th><th>Impacto Pintos</th></tr>';
   tbody.innerHTML = faixas.map(f => {
     const rows = byF[f];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
@@ -1331,7 +1344,7 @@ function renderTipoOvo() {
 
   const thead = document.querySelector('#table-tipoovo thead');
   const tbody = document.querySelector('#table-tipoovo tbody');
-  thead.innerHTML = '<tr><th>Tipo de Ovo</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Padrão Ecl (%)</th><th>Impacto Pintos</th></tr>';
+  thead.innerHTML = '<tr><th>Tipo de Ovo</th><th>Ovos Incub.</th><th>% Volume</th><th>Eficiência (%)</th><th>Meta Efic (%)</th><th>Δ</th><th>Eclosão Real (%)</th><th>Meta Ecl (%)</th><th>Impacto Pintos</th></tr>';
   tbody.innerHTML = tipos.map(t => {
     const rows = byTp[t];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
@@ -1377,7 +1390,7 @@ function renderDiasEstoque() {
 
   const thead = document.querySelector('#table-diasestoque thead');
   const tbody = document.querySelector('#table-diasestoque tbody');
-  thead.innerHTML = '<tr><th>Dias Estoque</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ</th></tr>';
+  thead.innerHTML = '<tr><th>Dias Estoque</th><th>Ovos Incub.</th><th>% Volume</th><th>Eclosão</th><th>Eficiência (%)</th><th>Meta Efic (%)</th><th>Δ</th></tr>';
   tbody.innerHTML = dias.map(dia => {
     const rows = byDia[dia];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
@@ -1403,7 +1416,7 @@ function renderIncubatorios() {
         labels: incs,
         datasets: [
           { type: 'bar',  label: 'Eclosão Real (%)',            data: incs.map(i => +calcEclReal(byInc[i]).toFixed(2)), backgroundColor: 'rgba(1,67,51,.8)',     borderColor: 'rgba(1,67,51,1)',    borderWidth: 1.5, yAxisID: 'y' },
-          { type: 'bar',  label: 'Eclosão Padrão (%)',          data: incs.map(i => +calcPdrEcl(byInc[i]).toFixed(2)),  backgroundColor: 'rgba(251,190,19,.75)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5, yAxisID: 'y' },
+          { type: 'bar',  label: 'Eclosão Meta (%)',          data: incs.map(i => +calcPdrEcl(byInc[i]).toFixed(2)),  backgroundColor: 'rgba(251,190,19,.75)', borderColor: 'rgba(251,190,19,1)', borderWidth: 1.5, yAxisID: 'y' },
           { type: 'line', label: 'Eficiência de Eclosão (%)',   data: incs.map(i => +calcEfic(byInc[i]).toFixed(2)),    borderColor: 'rgb(220,38,38)', backgroundColor: 'rgba(220,38,38,.08)', pointRadius: 5, pointBackgroundColor: 'rgb(220,38,38)', pointBorderColor: '#fff', pointBorderWidth: 2, borderWidth: 2.5, fill: false, tension: 0.3, yAxisID: 'y1' }
         ]
       },
@@ -1426,7 +1439,7 @@ function renderIncubatorios() {
 
   const thead = document.querySelector('#table-incubatorios thead');
   const tbody = document.querySelector('#table-incubatorios tbody');
-  thead.innerHTML = '<tr><th>Incubatório</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eclosão Real (%)</th><th>Eclosão Padrão (%)</th><th>Δ Ecl</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th><th>Δ Efic</th><th>Impacto Pintos</th></tr>';
+  thead.innerHTML = '<tr><th>Incubatório</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Eclosão Real (%)</th><th>Eclosão Padrão (%)</th><th>Δ Ecl</th><th>Eficiência (%)</th><th>Meta Efic (%)</th><th>Δ Efic</th><th>Impacto Pintos</th></tr>';
   tbody.innerHTML = incs.map(i => {
     const rows = byInc[i];
     const efic = calcEfic(rows), pefic = calcPdrEfic(rows);
@@ -1464,7 +1477,7 @@ function renderImpacto() {
 
   const thead = document.querySelector('#table-impacto thead');
   const tbody = document.querySelector('#table-impacto tbody');
-  thead.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Efic. Eclo. Pdr</th><th>Impacto Pintos</th><th>Eficiência (%)</th><th>Padrão Efic (%)</th></tr>';
+  thead.innerHTML = '<tr><th>Mês</th><th>Ovos Incub.</th><th>Eclosão</th><th>Eclosão Pdr</th><th>Efic. Eclo. Pdr</th><th>Impacto Pintos</th><th>Eficiência (%)</th><th>Meta Efic (%)</th></tr>';
   tbody.innerHTML = meses.map(m => {
     const rows = byMes[m];
     const imp = calcImpacto(rows);
